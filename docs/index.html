@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Awesome Dev Agents — GitHub Copilot Custom Agents for Software Development</title>
     <meta name="description"
-        content="8 battle-tested custom agents for the complete software development lifecycle. Drop these .agent.md files into your project and ship better software, faster.">
+        content="9 battle-tested custom agents for the complete software development lifecycle. Drop these .agent.md files into your project and ship better software, faster.">
     <link
         href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap"
         rel="stylesheet">
@@ -221,7 +221,10 @@
             flex-wrap: wrap;
         }
 
-        .stat {}
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
 
         .stat-num {
             font-family: 'Syne', sans-serif;
@@ -825,8 +828,8 @@
         <div class="hero">
             <div class="hero-eyebrow">GitHub Copilot · Custom Agents · Open Source</div>
             <h1>Your Dev Agent<br><span class="accent-cyan">Toolkit</span></h1>
-            <p class="hero-subtitle">8 custom agents covering every corner of the software development lifecycle —
-                AI/ML, full-stack, system design, security, documentation, and more. Drop these <code>.agent.md</code>
+            <p class="hero-subtitle">9 custom agents covering every corner of the software development lifecycle —
+                AI/ML, full-stack, open source, UI design, security, and more. Drop these <code>.agent.md</code>
                 files and ship better software, faster.</p>
             <div class="hero-actions">
                 <a href="https://github.com/YOUR_USERNAME/awesome-dev-agents" class="btn btn-primary"
@@ -835,11 +838,11 @@
             </div>
             <div class="hero-stats">
                 <div class="stat">
-                    <div class="stat-num">8<span>+</span></div>
+                    <div class="stat-num">9<span>+</span></div>
                     <div class="stat-label">Custom Agents</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-num" style="color:var(--accent3)">6</div>
+                    <div class="stat-num" style="color:var(--accent3)">8</div>
                     <div class="stat-label">Workflow Combos</div>
                 </div>
                 <div class="stat">
@@ -1261,44 +1264,95 @@ injection in LLM pipelines. Output: severity-graded report.</span></pre>
                     </div>
                 </div>
 
-                <!-- 8. GSoC Contributor -->
+                <!-- 8. Open Source Contributor -->
                 <div class="agent-card">
                     <div class="agent-header">
-                        <div class="agent-icon">🚀</div>
+                        <div class="agent-icon">🌍</div>
                         <div class="agent-meta">
-                            <div class="agent-name" style="color:#f0c040">GSoC Contributor</div>
-                            <div class="agent-desc">Codebase Navigation · Proposal Writing · Open Source Patterns</div>
+                            <div class="agent-name" style="color:#f0c040">Open Source Contributor</div>
+                            <div class="agent-desc">Finding Projects · Codebase Navigation · PRs · Proposals · Beginner
+                                Guide</div>
                             <div class="agent-tags">
                                 <span class="badge yellow">Open Source</span>
+                                <span class="badge yellow">First PR</span>
                                 <span class="badge yellow">GSoC</span>
-                                <span class="badge yellow">Contributions</span>
+                                <span class="badge yellow">Beginner</span>
                             </div>
                         </div>
                     </div>
                     <div class="agent-body">
-                        <div class="agent-use">Helps navigate unfamiliar open-source codebases systematically, write
-                            proposals that sound human, and implement features that match existing conventions.</div>
-                        <div class="code-block" data-label="gsoc-contributor.agent.md" style="position:relative">
+                        <div class="agent-use">Full open source journey — from finding the right project and making your
+                            very first PR, to navigating large codebases systematically and writing GSoC/Outreachy
+                            proposals that sound human.</div>
+                        <div class="code-block" data-label="open-source-contributor.agent.md" style="position:relative">
                             <pre><span class="cm">---</span>
-<span class="kw">name</span>: <span class="str">GSoC Contributor</span>
-<span class="kw">description</span>: <span class="str">Specializes in open-source contribution workflows,
-  understanding foreign codebases, and writing GSoC proposals.
-  Use for any open-source contribution or GSoC-related task.</span>
+<span class="kw">name</span>: <span class="str">Open Source Contributor</span>
+<span class="kw">description</span>: <span class="str">Expert at navigating open-source codebases, making PRs,
+  writing GSoC/Outreachy proposals, and guiding beginners
+  through their first contribution.</span>
 <span class="kw">tools</span>: <span class="val">['read', 'search', 'edit', 'create', 'run_command', 'fetch']</span>
 <span class="cm">---</span>
 
-<span class="cm">Codebase exploration: map structure first, trace entry point,
-identify patterns, find good first issues. Proposals: specific
-files/functions, realistic timelines, natural language.</span></pre>
-                            <button class="copy-btn" onclick="copyAgent(this, 'agents/gsoc-contributor.agent.md')">copy
+<span class="cm">5 phases: finding projects → understanding codebases →
+making PRs → writing proposals → discussion posts.
+Beginners: start with goodfirstissue.dev + languages you know.</span></pre>
+                            <button class="copy-btn"
+                                onclick="copyAgent(this, 'agents/open-source-contributor.agent.md')">copy path</button>
+                        </div>
+                        <div class="trigger-section">
+                            <div class="trigger-label">Say to invoke</div>
+                            <div class="triggers">
+                                <span class="trigger">help me find an open source project…</span>
+                                <span class="trigger">understand this codebase before I start…</span>
+                                <span class="trigger">write a GSoC proposal for…</span>
+                                <span class="trigger">review my PR before I submit…</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. UI Designer -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon">🎨</div>
+                        <div class="agent-meta">
+                            <div class="agent-name" style="color:#7c6af7">UI Designer</div>
+                            <div class="agent-desc">Screenshot → Design Language · CSS Tokens · Non-AI-Looking Frontends
+                            </div>
+                            <div class="agent-tags">
+                                <span class="badge purple">Screenshot-to-code</span>
+                                <span class="badge purple">CSS Tokens</span>
+                                <span class="badge purple">Design System</span>
+                                <span class="badge purple">Typography</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <div class="agent-use">Give it a screenshot or URL of a design you love. It extracts the full
+                            design language — fonts, colors, spacing, motion — and applies it to your actual content and
+                            codebase. Produces frontends that look deliberately crafted, not AI-generated.</div>
+                        <div class="code-block" data-label="ui-designer.agent.md" style="position:relative">
+                            <pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">UI Designer</span>
+<span class="kw">description</span>: <span class="str">Extracts design language from reference screenshots or
+  URLs and applies it to your content. Produces non-AI-looking
+  frontends. Trigger: design like, match this style, screenshot.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'edit', 'create', 'search']</span>
+<span class="cm">---</span>
+
+<span class="cm">Step 1: extract typography, colors, spacing, motion from ref.
+Step 2: build CSS token system (:root custom properties).
+Step 3: apply tokens to components — content stays unchanged.</span></pre>
+                            <button class="copy-btn" onclick="copyAgent(this, 'agents/ui-designer.agent.md')">copy
                                 path</button>
                         </div>
                         <div class="trigger-section">
                             <div class="trigger-label">Say to invoke</div>
                             <div class="triggers">
-                                <span class="trigger">understand this open source codebase…</span>
-                                <span class="trigger">help me write a GSoC proposal…</span>
-                                <span class="trigger">implement this feature following existing patterns…</span>
+                                <span class="trigger">[attach screenshot] apply this design to…</span>
+                                <span class="trigger">make my UI look like linear.app…</span>
+                                <span class="trigger">extract the design tokens from…</span>
+                                <span class="trigger">my site looks AI-generated, redesign it like…</span>
                             </div>
                         </div>
                     </div>
@@ -1334,9 +1388,9 @@ files/functions, realistic timelines, natural language.</span></pre>
                     </div>
                 </div>
                 <div class="combo-card">
-                    <div class="combo-label">🚀 Open Source Contribution</div>
+                    <div class="combo-label">🌍 Open Source Contribution</div>
                     <div class="combo-chain">
-                        <span class="combo-agent">GSoC Contributor</span>
+                        <span class="combo-agent">Open Source Contributor</span>
                         <span class="combo-arrow">→</span>
                         <span class="combo-agent">Code Reviewer</span>
                         <span class="combo-arrow">→</span>
@@ -1371,6 +1425,26 @@ files/functions, realistic timelines, natural language.</span></pre>
                         <span class="combo-agent">Full Stack Dev</span>
                         <span class="combo-arrow">→</span>
                         <span class="combo-agent">Security Auditor</span>
+                    </div>
+                </div>
+                <div class="combo-card">
+                    <div class="combo-label">🎨 Frontend Redesign</div>
+                    <div class="combo-chain">
+                        <span class="combo-agent">UI Designer</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Full Stack Dev</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Code Reviewer</span>
+                    </div>
+                </div>
+                <div class="combo-card">
+                    <div class="combo-label">🎓 First OSS Contribution</div>
+                    <div class="combo-chain">
+                        <span class="combo-agent">Open Source Contributor</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Code Reviewer</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Doc Writer</span>
                     </div>
                 </div>
             </div>
