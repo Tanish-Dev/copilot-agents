@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Dev Agents — GitHub Copilot Custom Agents for Software Development</title>
+    <meta name="description"
+        content="8 battle-tested custom agents for the complete software development lifecycle. Drop these .agent.md files into your project and ship better software, faster.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070a0f;
+            --surface: #0d1117;
+            --surface2: #161b22;
+            --border: #1e2733;
+            --accent: #00e5cc;
+            --accent2: #ff5f40;
+            --accent3: #7c6af7;
+            --accent4: #f0c040;
+            --text: #e6edf3;
+            --muted: #7d8590;
+            --code-bg: #0a0e14;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 229, 204, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 204, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Radial glow */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(0, 229, 204, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ─── Nav ─── */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 24px;
+            margin-bottom: 48px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 14px;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-cta {
+            background: rgba(0, 229, 204, 0.1);
+            border: 1px solid rgba(0, 229, 204, 0.3);
+            color: var(--accent) !important;
+            padding: 5px 14px !important;
+            text-transform: none !important;
+            letter-spacing: 0 !important;
+            font-size: 11px !important;
+            transition: background 0.2s, color 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            background: rgba(0, 229, 204, 0.2) !important;
+            color: var(--accent) !important;
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            margin-bottom: 64px;
+        }
+
+        .hero-eyebrow {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: rgba(0, 229, 204, 0.08);
+            border: 1px solid rgba(0, 229, 204, 0.2);
+            padding: 4px 12px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(32px, 6vw, 60px);
+            font-weight: 800;
+            line-height: 1.05;
+            color: var(--text);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        h1 .accent-cyan {
+            color: var(--accent);
+        }
+
+        h1 .accent-purple {
+            color: var(--accent3);
+        }
+
+        .hero-subtitle {
+            color: var(--muted);
+            font-size: 13px;
+            max-width: 580px;
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: #00ccb4;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: var(--muted);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 36px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .stat {}
+
+        .stat-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .stat-num span {
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* ─── Section ─── */
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ─── Quick Start ─── */
+        .quickstart-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: -1px;
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-btn:hover {
+            color: var(--text);
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .setup-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        @media (max-width: 700px) {
+            .setup-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .setup-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 20px;
+            position: relative;
+        }
+
+        .setup-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent3);
+        }
+
+        .setup-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent3);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            background: rgba(124, 106, 247, 0.15);
+            border: 1px solid var(--accent3);
+            color: var(--accent3);
+            font-size: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step p {
+            color: var(--text);
+            font-size: 12px;
+        }
+
+        .step p code {
+            background: rgba(124, 106, 247, 0.12);
+            color: var(--accent3);
+            padding: 1px 5px;
+            font-size: 11px;
+        }
+
+        /* ─── Agent Cards ─── */
+        .agents-grid {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .agent-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        .agent-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 229, 204, 0.06);
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px 20px 0;
+        }
+
+        .agent-icon {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+        }
+
+        .agent-meta {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .agent-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .agent-desc {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .agent-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .badge {
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            border: 1px solid;
+        }
+
+        .badge.cyan {
+            color: var(--accent);
+            border-color: rgba(0, 229, 204, 0.3);
+            background: rgba(0, 229, 204, 0.06);
+        }
+
+        .badge.orange {
+            color: var(--accent2);
+            border-color: rgba(255, 95, 64, 0.3);
+            background: rgba(255, 95, 64, 0.06);
+        }
+
+        .badge.purple {
+            color: var(--accent3);
+            border-color: rgba(124, 106, 247, 0.3);
+            background: rgba(124, 106, 247, 0.06);
+        }
+
+        .badge.yellow {
+            color: var(--accent4);
+            border-color: rgba(240, 192, 64, 0.3);
+            background: rgba(240, 192, 64, 0.06);
+        }
+
+        .agent-body {
+            padding: 16px 20px 20px;
+        }
+
+        .agent-use {
+            font-size: 12px;
+            color: var(--text);
+            margin-bottom: 14px;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 2px solid var(--accent);
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            padding: 14px 16px;
+            font-size: 11px;
+            overflow-x: auto;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .code-block::before {
+            content: attr(data-label);
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 3px 8px;
+            background: var(--border);
+        }
+
+        .code-block .cm {
+            color: #7d8590;
+        }
+
+        .code-block .kw {
+            color: var(--accent3);
+        }
+
+        .code-block .str {
+            color: #a5d6ff;
+        }
+
+        .code-block .val {
+            color: var(--accent4);
+        }
+
+        .code-block .tag-c {
+            color: var(--accent);
+        }
+
+        .copy-btn {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            padding: 3px 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .trigger-section {
+            margin-top: 12px;
+        }
+
+        .trigger-label {
+            font-size: 9px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .triggers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .trigger {
+            font-size: 10px;
+            color: var(--accent);
+            background: rgba(0, 229, 204, 0.06);
+            border: 1px solid rgba(0, 229, 204, 0.15);
+            padding: 3px 10px;
+            cursor: default;
+            transition: background 0.2s;
+        }
+
+        .trigger:hover {
+            background: rgba(0, 229, 204, 0.12);
+        }
+
+        /* ─── Combos ─── */
+        .combos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .combo-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: border-color 0.2s;
+        }
+
+        .combo-card:hover {
+            border-color: var(--accent3);
+        }
+
+        .combo-label {
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent4);
+            letter-spacing: 0.05em;
+        }
+
+        .combo-chain {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            font-size: 11px;
+        }
+
+        .combo-agent {
+            background: rgba(124, 106, 247, 0.1);
+            border: 1px solid rgba(124, 106, 247, 0.25);
+            color: var(--accent3);
+            padding: 3px 10px;
+        }
+
+        .combo-arrow {
+            color: var(--border);
+            font-size: 14px;
+        }
+
+        /* ─── Format Reference ─── */
+        .format-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        @media (max-width: 640px) {
+            .format-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .format-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 20px;
+        }
+
+        .format-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent2);
+            margin-bottom: 14px;
+        }
+
+        /* ─── Tips ─── */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .tip-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 18px;
+            transition: border-color 0.2s;
+        }
+
+        .tip-card:hover {
+            border-color: var(--accent4);
+        }
+
+        .tip-card h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent4);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tip-card ul {
+            list-style: none;
+        }
+
+        .tip-card li {
+            font-size: 11.5px;
+            color: var(--muted);
+            padding: 4px 0;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .tip-card li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--accent4);
+        }
+
+        .tip-card li strong {
+            color: var(--text);
+        }
+
+        /* ─── CTA Banner ─── */
+        .cta-banner {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 32px;
+            margin-bottom: 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent3), var(--accent), var(--accent4));
+        }
+
+        .cta-banner h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(18px, 3vw, 28px);
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-banner p {
+            color: var(--muted);
+            font-size: 12px;
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ─── Footer ─── */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+        }
+
+        .footer a {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--accent);
+        }
+
+        .footer span {
+            color: var(--accent);
+        }
+
+        pre {
+            white-space: pre-wrap;
+        }
+
+        /* ─── Scrollbar ─── */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Nav -->
+        <nav class="nav">
+            <div class="nav-logo">awesome-dev-agents</div>
+            <ul class="nav-links">
+                <li><a href="#agents">Agents</a></li>
+                <li><a href="#combos">Combos</a></li>
+                <li><a href="#tips">Tips</a></li>
+                <li><a href="https://github.com/YOUR_USERNAME/awesome-dev-agents" class="nav-cta" target="_blank">GitHub
+                        ↗</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-eyebrow">GitHub Copilot · Custom Agents · Open Source</div>
+            <h1>Your Dev Agent<br><span class="accent-cyan">Toolkit</span></h1>
+            <p class="hero-subtitle">8 custom agents covering every corner of the software development lifecycle —
+                AI/ML, full-stack, system design, security, documentation, and more. Drop these <code>.agent.md</code>
+                files and ship better software, faster.</p>
+            <div class="hero-actions">
+                <a href="https://github.com/YOUR_USERNAME/awesome-dev-agents" class="btn btn-primary"
+                    id="hero-github-btn">↓ Get Agents on GitHub</a>
+                <a href="#agents" class="btn btn-outline">Browse Agents →</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-num">8<span>+</span></div>
+                    <div class="stat-label">Custom Agents</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" style="color:var(--accent3)">6</div>
+                    <div class="stat-label">Workflow Combos</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" style="color:var(--accent4)">0</div>
+                    <div class="stat-label">Config Needed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" style="color:var(--accent2)">MIT</div>
+                    <div class="stat-label">License</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Start -->
+        <div id="quickstart">
+            <div class="section-title">Quick Start</div>
+            <div class="setup-grid">
+                <div class="setup-card">
+                    <h3>⎈ VS Code Setup</h3>
+                    <div class="step">
+                        <div class="step-num">1</div>
+                        <p>Open Copilot Chat → click the <code>agents dropdown</code> → <strong>Configure Custom
+                                Agents…</strong></p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">2</div>
+                        <p>Choose <strong>Workspace</strong> (repo-specific) or <strong>User Profile</strong> (global
+                            across all projects)</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">3</div>
+                        <p>Name the file → VS Code creates <code>.github/agents/agent-name.agent.md</code></p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">4</div>
+                        <p>Paste the agent config below → save → agent appears in dropdown instantly</p>
+                    </div>
+                </div>
+                <div class="setup-card">
+                    <h3>⚡ CLI & GitHub.com</h3>
+                    <div class="step">
+                        <div class="step-num">1</div>
+                        <p>Copy files from <code>agents/</code> into <code>.github/agents/</code> in your project</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">2</div>
+                        <p>Commit and push to your default branch</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">3</div>
+                        <p>CLI: <code>copilot --agent=ai-engineer --prompt "your task"</code></p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">4</div>
+                        <p>GitHub.com: go to <code>github.com/copilot/agents</code> → pick repo → select agent</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Format Reference -->
+            <div class="section-title">Agent File Format</div>
+            <div class="format-grid">
+                <div class="format-card">
+                    <h3>File Anatomy</h3>
+                    <div class="code-block" data-label=".agent.md" style="position:relative">
+                        <pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">My Agent</span>
+<span class="kw">description</span>: <span class="str">What I do and trigger keywords</span>
+<span class="kw">tools</span>: <span class="val">['read', 'edit', 'search', 'run_command']</span>
+<span class="kw">model</span>: <span class="str">claude-sonnet-4-5</span>  <span class="cm"># optional</span>
+<span class="cm">---</span>
+
+<span class="cm"># System prompt (up to 30,000 chars)</span>
+<span class="cm"># Define: persona, rules, output format, examples</span></pre>
+                    </div>
+                </div>
+                <div class="format-card">
+                    <h3>Tool Reference</h3>
+                    <div class="code-block" data-label="tools">
+                        <pre><span class="tag-c">read</span>       <span class="cm">← always include</span>
+<span class="tag-c">edit</span>       <span class="cm">← agent modifies files</span>
+<span class="tag-c">create</span>     <span class="cm">← agent creates new files</span>
+<span class="tag-c">search</span>     <span class="cm">← agent searches/greps</span>
+<span class="tag-c">run_command</span> <span class="cm">← runs shell commands</span>
+<span class="tag-c">fetch</span>      <span class="cm">← reads URLs/external docs</span></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agents -->
+        <div id="agents">
+            <div class="section-title">The 8 Agents</div>
+            <div class="agents-grid">
+
+                <!-- 1. AI Engineer -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon">🤖</div>
+                        <div class="agent-meta">
+                            <div class="agent-name" style="color:#00e5cc">AI Engineer</div>
+                            <div class="agent-desc">LangChain · FastAPI · PyTorch · LangGraph · RAG · OCR · YOLO</div>
+                            <div class="agent-tags">
+                                <span class="badge cyan">Python</span>
+                                <span class="badge cyan">LangChain</span>
+                                <span class="badge cyan">FastAPI</span>
+                                <span class="badge cyan">PyTorch</span>
+                                <span class="badge cyan">RAG</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <div class="agent-use">For all AI/ML work — chatbots, RAG pipelines, inference endpoints,
+                            agentic systems, OCR, and computer vision. Knows production-grade patterns, not demos.</div>
+                        <div class="code-block" data-label="ai-engineer.agent.md" style="position:relative">
+                            <pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">AI Engineer</span>
+<span class="kw">description</span>: <span class="str">Expert in LangChain, FastAPI, PyTorch, RAG pipelines,
+  LLM integrations, OCR, YOLO, and agentic systems.
+  Use for any AI/ML feature, pipeline, or inference endpoint.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'edit', 'search', 'create', 'run_command']</span>
+<span class="cm">---</span>
+
+<span class="cm">You are a senior AI engineer specializing in production-grade
+LLM applications. Prefer LCEL over legacy AgentExecutor.
+Always add async/await, Pydantic v2 validation, structured
+logging, and error handling to every pipeline.</span></pre>
+                            <button class="copy-btn" onclick="copyAgent(this, 'agents/ai-engineer.agent.md')">copy
+                                path</button>
+                        </div>
+                        <div class="trigger-section">
+                            <div class="trigger-label">Say to invoke</div>
+                            <div class="triggers">
+                                <span class="trigger">build a RAG pipeline for…</span>
+                                <span class="trigger">add an LLM endpoint to…</span>
+                                <span class="trigger">improve this YOLO model…</span>
+                                <span class="trigger">create a LangChain agent that…</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Full Stack Dev -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon">⚡</div>
+                        <div class="agent-meta">
+                            <div class="agent-name" style="color:#7c6af7">Full Stack Dev</div>
+                            <div class="agent-desc">React · Node.js · FastAPI · REST APIs · Docker · SQL · TypeScript
+                            </div>
+                            <div class="agent-tags">
+                                <span class="badge purple">React</span>
+                                <span class="badge purple">TypeScript</span>
+                                <span class="badge purple">Node.js</span>
+                                <span class="badge purple">Docker</span>
+                                <span class="badge purple">SQL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <div class="agent-use">For building features across the entire stack — pixel-perfect React
+                            components, REST APIs, auth flows, database design, and responsive UIs.</div>
+                        <div class="code-block" data-label="fullstack-dev.agent.md" style="position:relative">
+                            <pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">Full Stack Dev</span>
+<span class="kw">description</span>: <span class="str">Expert in React, Node.js, FastAPI, REST APIs, SQL,
+  Docker, and responsive UI. Use for building features,
+  fixing bugs, creating API routes, or building UI components.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'edit', 'search', 'create', 'run_command']</span>
+<span class="cm">---</span>
+
+<span class="cm">Functional components only. TypeScript preferred. Mobile-first.
+Use React Query for server state. Always validate API inputs.
+Use env vars for all secrets — never hardcode.</span></pre>
+                            <button class="copy-btn" onclick="copyAgent(this, 'agents/fullstack-dev.agent.md')">copy
+                                path</button>
+                        </div>
+                        <div class="trigger-section">
+                            <div class="trigger-label">Say to invoke</div>
+                            <div class="triggers">
+                                <span class="trigger">build a component for…</span>
+                                <span class="trigger">create an API route that…</span>
+                                <span class="trigger">fix this responsive layout…</span>
+                                <span class="trigger">add auth to this endpoint…</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. ML Researcher -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon">🧠</div>
+                        <div class="agent-meta">
+                            <div class="agent-name" style="color:#f0c040">ML Researcher</div>
+                            <div class="agent-desc">scikit-learn · XGBoost · PyTorch · Feature Engineering · Evaluation
+                            </div>
+                            <div class="agent-tags">
+                                <span class="badge yellow">scikit-learn</span>
+                                <span class="badge yellow">Pandas</span>
+                                <span class="badge yellow">XGBoost</span>
+                                <span class="badge yellow">PyTorch</span>
+                                <span class="badge yellow">Notebooks</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <div class="agent-use">For ML experiments, data science challenges, model training, and
+                            evaluation. Applies rigorous methodology — always EDA first, cross-validation, and proper
+                            metrics.</div>
+                        <div class="code-block" data-label="ml-researcher.agent.md" style="position:relative">
+                            <pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">ML Researcher</span>
+<span class="kw">description</span>: <span class="str">Expert in classical ML, deep learning, feature
+  engineering, model evaluation, and data pipelines.
+  Use for experiments, preprocessing, training, and analysis.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'edit', 'search', 'run_command']</span>
+<span class="cm">---</span>
+
+<span class="cm">Always start with EDA. Use stratified K-fold, not a single
+split. Use sklearn Pipeline to prevent leakage. For CNNs:
+include augmentation, dropout, batch norm, LR scheduling.</span></pre>
+                            <button class="copy-btn" onclick="copyAgent(this, 'agents/ml-researcher.agent.md')">copy
+                                path</button>
+                        </div>
+                        <div class="trigger-section">
+                            <div class="trigger-label">Say to invoke</div>
+                            <div class="triggers">
+                                <span class="trigger">improve this model's accuracy…</span>
+                                <span class="trigger">add feature engineering for…</span>
+                                <span class="trigger">evaluate this CNN on…</span>
+                                <span class="trigger">fix this data pipeline…</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Code Reviewer -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon">🔍</div>
+                        <div class="agent-meta">
+                            <div class="agent-name" style="color:#ff5f40">Code Reviewer</div>
+                            <div class="agent-desc">Correctness · Security · Performance · Readability · Clean Code
+                            </div>
+                            <div class="agent-tags">
+                                <span class="badge orange">Python</span>
+                                <span class="badge orange">JS/TS</span>
+                                <span class="badge orange">C++</span>
+                                <span class="badge orange">Java</span>
+                                <span class="badge orange">Go</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <div class="agent-use">Run before any PR, deployment, or demo. Outputs structured [CRITICAL /
+                            HIGH / WARN / SUGGESTION] reports with exact line references and concrete fixes.</div>
+                        <div class="code-block" data-label="code-reviewer.agent.md" style="position:relative">
+                            <pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">Code Reviewer</span>
+<span class="kw">description</span>: <span class="str">Reviews Python, JS/TS, C++, Java, Go for correctness,
+  performance, security, and clean code. Outputs structured
+  severity reports. Use before any PR, submission, or demo.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'search', 'edit']</span>
+<span class="cm">---</span>
+
+<span class="cm">Review for: logic bugs, security flaws, performance issues,
+readability, and language-specific gotchas. Output format:
+[CRITICAL/HIGH/WARN/SUGGESTION] + file:line + fix.</span></pre>
+                            <button class="copy-btn" onclick="copyAgent(this, 'agents/code-reviewer.agent.md')">copy
+                                path</button>
+                        </div>
+                        <div class="trigger-section">
+                            <div class="trigger-label">Say to invoke</div>
+                            <div class="triggers">
+                                <span class="trigger">review this file for bugs…</span>
+                                <span class="trigger">check complexity of this solution…</span>
+                                <span class="trigger">seccheck all files in /src…</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. System Designer -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon">🏗️</div>
+                        <div class="agent-meta">
+                            <div class="agent-name" style="color:#00e5cc">System Designer</div>
+                            <div class="agent-desc">Architecture · Mermaid Diagrams · Microservices · API Design ·
+                                Scalability</div>
+                            <div class="agent-tags">
+                                <span class="badge cyan">Mermaid</span>
+                                <span class="badge cyan">REST</span>
+                                <span class="badge cyan">Microservices</span>
+                                <span class="badge cyan">DB Schemas</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <div class="agent-use">For planning system architecture, designing APIs, creating DB schemas,
+                            and generating Mermaid diagrams. Always includes trade-off analysis and scalability notes.
+                        </div>
+                        <div class="code-block" data-label="system-designer.agent.md" style="position:relative">
+                            <pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">System Designer</span>
+<span class="kw">description</span>: <span class="str">Expert at software architecture, REST API design,
+  database schemas, and Mermaid diagrams. Use for planning
+  systems or generating architecture docs before coding.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'search', 'create', 'edit']</span>
+<span class="cm">---</span>
+
+<span class="cm">Always produce: Mermaid diagram, component breakdown, API
+endpoint table (method/path/auth/req/res), DB schema, and
+scalability/trade-off notes for every architecture request.</span></pre>
+                            <button class="copy-btn" onclick="copyAgent(this, 'agents/system-designer.agent.md')">copy
+                                path</button>
+                        </div>
+                        <div class="trigger-section">
+                            <div class="trigger-label">Say to invoke</div>
+                            <div class="triggers">
+                                <span class="trigger">design the system for…</span>
+                                <span class="trigger">create API schema for…</span>
+                                <span class="trigger">draw an architecture diagram of…</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Doc Writer -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon">📝</div>
+                        <div class="agent-meta">
+                            <div class="agent-name" style="color:#7c6af7">Doc Writer</div>
+                            <div class="agent-desc">README · Proposals · Research Papers · Docstrings · Changelogs ·
+                                ADRs</div>
+                            <div class="agent-tags">
+                                <span class="badge purple">Markdown</span>
+                                <span class="badge purple">IEEE</span>
+                                <span class="badge purple">GSoC</span>
+                                <span class="badge purple">Docstrings</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <div class="agent-use">Writes clear, professional technical documentation that sounds human —
+                            not AI-polished marketing copy. Covers READMEs, proposals, academic papers, and code docs.
+                        </div>
+                        <div class="code-block" data-label="doc-writer.agent.md" style="position:relative">
+                            <pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">Doc Writer</span>
+<span class="kw">description</span>: <span class="str">Expert at README files, proposals, IEEE-style papers,
+  and Google-style docstrings. Writes precise, scannable docs
+  that sound human. Use for any technical writing task.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'edit', 'search', 'create']</span>
+<span class="cm">---</span>
+
+<span class="cm">README: badges, quick demo, install steps, usage examples.
+Proposals: specific files/functions, realistic timelines.
+Docstrings: Google style with Args, Returns, Raises, Example.</span></pre>
+                            <button class="copy-btn" onclick="copyAgent(this, 'agents/doc-writer.agent.md')">copy
+                                path</button>
+                        </div>
+                        <div class="trigger-section">
+                            <div class="trigger-label">Say to invoke</div>
+                            <div class="triggers">
+                                <span class="trigger">write README for this project…</span>
+                                <span class="trigger">improve this proposal…</span>
+                                <span class="trigger">add docstrings to all functions…</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Security Auditor -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon">🛡️</div>
+                        <div class="agent-meta">
+                            <div class="agent-name" style="color:#ff5f40">Security Auditor</div>
+                            <div class="agent-desc">OWASP Top 10 · Secrets · Injection · Auth Flaws · CVEs · LLM
+                                Security</div>
+                            <div class="agent-tags">
+                                <span class="badge orange">OWASP Top 10</span>
+                                <span class="badge orange">Secrets</span>
+                                <span class="badge orange">CVE Scan</span>
+                                <span class="badge orange">LLM Sec</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <div class="agent-use">Run before deploying, open-sourcing, or merging auth code. Produces
+                            CRITICAL/HIGH/MEDIUM/LOW severity reports with exact file locations and remediation steps.
+                        </div>
+                        <div class="code-block" data-label="security-auditor.agent.md" style="position:relative">
+                            <pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">Security Auditor</span>
+<span class="kw">description</span>: <span class="str">Audits code for OWASP Top 10, exposed secrets, injection
+  risks, insecure dependencies, and auth flaws.
+  Use before any public release, deployment, or when "secaudit" appears.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'search', 'run_command']</span>
+<span class="cm">---</span>
+
+<span class="cm">Check for: hardcoded secrets, SQL/command injection,
+broken auth, XSS/CSRF, CVE dependencies, and prompt
+injection in LLM pipelines. Output: severity-graded report.</span></pre>
+                            <button class="copy-btn" onclick="copyAgent(this, 'agents/security-auditor.agent.md')">copy
+                                path</button>
+                        </div>
+                        <div class="trigger-section">
+                            <div class="trigger-label">Say to invoke</div>
+                            <div class="triggers">
+                                <span class="trigger">secaudit the entire /src…</span>
+                                <span class="trigger">check for exposed keys in…</span>
+                                <span class="trigger">audit this before deployment…</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. GSoC Contributor -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-icon">🚀</div>
+                        <div class="agent-meta">
+                            <div class="agent-name" style="color:#f0c040">GSoC Contributor</div>
+                            <div class="agent-desc">Codebase Navigation · Proposal Writing · Open Source Patterns</div>
+                            <div class="agent-tags">
+                                <span class="badge yellow">Open Source</span>
+                                <span class="badge yellow">GSoC</span>
+                                <span class="badge yellow">Contributions</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <div class="agent-use">Helps navigate unfamiliar open-source codebases systematically, write
+                            proposals that sound human, and implement features that match existing conventions.</div>
+                        <div class="code-block" data-label="gsoc-contributor.agent.md" style="position:relative">
+                            <pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">GSoC Contributor</span>
+<span class="kw">description</span>: <span class="str">Specializes in open-source contribution workflows,
+  understanding foreign codebases, and writing GSoC proposals.
+  Use for any open-source contribution or GSoC-related task.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'search', 'edit', 'create', 'run_command', 'fetch']</span>
+<span class="cm">---</span>
+
+<span class="cm">Codebase exploration: map structure first, trace entry point,
+identify patterns, find good first issues. Proposals: specific
+files/functions, realistic timelines, natural language.</span></pre>
+                            <button class="copy-btn" onclick="copyAgent(this, 'agents/gsoc-contributor.agent.md')">copy
+                                path</button>
+                        </div>
+                        <div class="trigger-section">
+                            <div class="trigger-label">Say to invoke</div>
+                            <div class="triggers">
+                                <span class="trigger">understand this open source codebase…</span>
+                                <span class="trigger">help me write a GSoC proposal…</span>
+                                <span class="trigger">implement this feature following existing patterns…</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Combos -->
+        <div id="combos">
+            <div class="section-title">Workflow Combos</div>
+            <div class="combos-grid">
+                <div class="combo-card">
+                    <div class="combo-label">🆕 New Feature</div>
+                    <div class="combo-chain">
+                        <span class="combo-agent">System Designer</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Full Stack Dev</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Code Reviewer</span>
+                    </div>
+                </div>
+                <div class="combo-card">
+                    <div class="combo-label">🤖 AI/ML Project</div>
+                    <div class="combo-chain">
+                        <span class="combo-agent">AI Engineer</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">ML Researcher</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Security Auditor</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Doc Writer</span>
+                    </div>
+                </div>
+                <div class="combo-card">
+                    <div class="combo-label">🚀 Open Source Contribution</div>
+                    <div class="combo-chain">
+                        <span class="combo-agent">GSoC Contributor</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Code Reviewer</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Doc Writer</span>
+                    </div>
+                </div>
+                <div class="combo-card">
+                    <div class="combo-label">🛡️ Secure Deployment</div>
+                    <div class="combo-chain">
+                        <span class="combo-agent">Full Stack Dev</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Security Auditor</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Doc Writer</span>
+                    </div>
+                </div>
+                <div class="combo-card">
+                    <div class="combo-label">🔬 Research Project</div>
+                    <div class="combo-chain">
+                        <span class="combo-agent">ML Researcher</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">System Designer</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Doc Writer</span>
+                    </div>
+                </div>
+                <div class="combo-card">
+                    <div class="combo-label">📋 Tech Debt Cleanup</div>
+                    <div class="combo-chain">
+                        <span class="combo-agent">Code Reviewer</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Full Stack Dev</span>
+                        <span class="combo-arrow">→</span>
+                        <span class="combo-agent">Security Auditor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <div id="tips">
+            <div class="section-title">Efficiency Tips</div>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4>⚡ Context Loading</h4>
+                    <ul>
+                        <li>Use <strong>@workspace</strong> before complex tasks so the agent sees your full repo
+                            structure</li>
+                        <li><strong>Name files explicitly:</strong> "review src/api/auth.py" not "review my auth code"
+                        </li>
+                        <li><strong>Chain agents:</strong> System Designer first → Full Stack Dev to implement</li>
+                    </ul>
+                </div>
+                <div class="tip-card">
+                    <h4>🎯 Trigger Keywords</h4>
+                    <ul>
+                        <li>Add <strong>trigger words in the description</strong> (like "secaudit") — Copilot
+                            auto-routes</li>
+                        <li><strong>CLI flag:</strong> <code>--agent=security-auditor</code> forces a specific agent
+                        </li>
+                        <li><strong>Handoffs:</strong> VS Code's handoff feature chains agents in one session</li>
+                    </ul>
+                </div>
+                <div class="tip-card">
+                    <h4>🧠 Model Selection</h4>
+                    <ul>
+                        <li>Use <strong>claude-sonnet</strong> for code-heavy tasks (AI Engineer, Full Stack Dev)</li>
+                        <li>Use <strong>GPT-4.1</strong> for fast, routine tasks like writing docstrings</li>
+                        <li>Use <strong>Claude Opus</strong> for proposals and system design — bigger context window
+                        </li>
+                    </ul>
+                </div>
+                <div class="tip-card">
+                    <h4>📦 Global vs Workspace</h4>
+                    <ul>
+                        <li><strong>User profile (global):</strong> Code Reviewer, Doc Writer, Security Auditor</li>
+                        <li><strong>Workspace (repo-specific):</strong> AI Engineer, Full Stack Dev, ML Researcher</li>
+                        <li>Global agents are available across every VS Code project</li>
+                    </ul>
+                </div>
+                <div class="tip-card">
+                    <h4>🔄 Agent Handoffs</h4>
+                    <ul>
+                        <li>Use <strong>"continue with @full-stack-dev"</strong> to hand off context between agents</li>
+                        <li>Reference the previous agent's output: <strong>"take the architecture @system-designer
+                                created and..."</strong></li>
+                        <li>Keep one agent per task — don't mix concerns in a single session</li>
+                    </ul>
+                </div>
+                <div class="tip-card">
+                    <h4>🛠 MCP Supercharger</h4>
+                    <ul>
+                        <li>Connect <strong>GitHub MCP</strong> to let agents read issues, PRs, and repo data natively
+                        </li>
+                        <li>Add <strong>Figma MCP</strong> to Full Stack Dev for design-to-code directly</li>
+                        <li>Add your <strong>local docs MCP</strong> so agents know your team's conventions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-banner">
+            <h2>Start shipping with better agents</h2>
+            <p>Fork the repo, drop the agent files into your project, and see the difference in your first session.</p>
+            <div class="cta-actions">
+                <a href="https://github.com/YOUR_USERNAME/awesome-dev-agents" class="btn btn-primary"
+                    id="cta-github-btn">Fork on GitHub →</a>
+                <a href="https://github.com/YOUR_USERNAME/awesome-dev-agents/blob/main/CONTRIBUTING.md"
+                    class="btn btn-outline" id="cta-contribute-btn">Contribute an Agent</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div>awesome-dev-agents · <span>MIT License</span></div>
+            <div>
+                <a href="https://github.com/YOUR_USERNAME/awesome-dev-agents">GitHub</a> ·
+                <a href="https://github.com/YOUR_USERNAME/awesome-dev-agents/blob/main/CONTRIBUTING.md">Contributing</a>
+                ·
+                <a
+                    href="https://docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent-in-your-ide">Copilot
+                    Docs ↗</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function copyAgent(btn, path) {
+            navigator.clipboard.writeText(path).then(() => {
+                const original = btn.textContent;
+                btn.textContent = 'copied!';
+                btn.style.color = 'var(--accent)';
+                btn.style.borderColor = 'var(--accent)';
+                setTimeout(() => {
+                    btn.textContent = original;
+                    btn.style.color = '';
+                    btn.style.borderColor = '';
+                }, 1500);
+            });
+        }
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Fade-in cards on scroll
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.05 });
+
+        document.querySelectorAll('.agent-card, .tip-card, .combo-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(16px)';
+            card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+
+</html>

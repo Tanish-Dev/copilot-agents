@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Copilot Custom Agents — Tanish's Dev Toolkit</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #070a0f;
+    --surface: #0d1117;
+    --surface2: #161b22;
+    --border: #1e2733;
+    --accent: #00e5cc;
+    --accent2: #ff5f40;
+    --accent3: #7c6af7;
+    --accent4: #f0c040;
+    --text: #e6edf3;
+    --muted: #7d8590;
+    --code-bg: #0d1117;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,204,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,204,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 180px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(0,229,204,0.08);
+    border: 1px solid rgba(0,229,204,0.2);
+    padding: 3px 10px;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    max-width: 600px;
+  }
+
+  /* Section */
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Setup Section */
+  .setup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 700px) { .setup-grid { grid-template-columns: 1fr; } }
+
+  .setup-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+    position: relative;
+  }
+
+  .setup-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent3);
+  }
+
+  .setup-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent3);
+    margin-bottom: 12px;
+  }
+
+  .step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    width: 20px;
+    height: 20px;
+    background: rgba(124,106,247,0.15);
+    border: 1px solid var(--accent3);
+    color: var(--accent3);
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step p { color: var(--text); font-size: 12px; }
+  .step p code {
+    background: rgba(124,106,247,0.12);
+    color: var(--accent3);
+    padding: 1px 5px;
+    font-size: 11px;
+  }
+
+  /* Agent Cards */
+  .agents-grid {
+    display: grid;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .agent-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .agent-card:hover { border-color: var(--accent); }
+
+  .agent-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 20px 0;
+  }
+
+  .agent-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+  }
+
+  .agent-meta { flex: 1; }
+
+  .agent-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .agent-desc { color: var(--muted); font-size: 11px; }
+
+  .agent-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .badge {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border: 1px solid;
+  }
+
+  .badge.cyan { color: var(--accent); border-color: rgba(0,229,204,0.3); background: rgba(0,229,204,0.06); }
+  .badge.orange { color: var(--accent2); border-color: rgba(255,95,64,0.3); background: rgba(255,95,64,0.06); }
+  .badge.purple { color: var(--accent3); border-color: rgba(124,106,247,0.3); background: rgba(124,106,247,0.06); }
+  .badge.yellow { color: var(--accent4); border-color: rgba(240,192,64,0.3); background: rgba(240,192,64,0.06); }
+
+  .agent-body {
+    padding: 16px 20px 20px;
+  }
+
+  .agent-use {
+    font-size: 11.5px;
+    color: var(--text);
+    margin-bottom: 14px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.02);
+    border-left: 2px solid var(--accent);
+  }
+
+  .code-block {
+    background: #0a0e14;
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    font-size: 11px;
+    overflow-x: auto;
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  .code-block::before {
+    content: attr(data-label);
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 3px 8px;
+    background: var(--border);
+  }
+
+  .code-block .cm { color: #7d8590; }
+  .code-block .kw { color: var(--accent3); }
+  .code-block .str { color: #a5d6ff; }
+  .code-block .val { color: var(--accent4); }
+  .code-block .tag-c { color: var(--accent); }
+  .code-block .sym { color: var(--accent2); }
+
+  .trigger-section { margin-top: 12px; }
+  .trigger-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .triggers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .trigger {
+    font-size: 10px;
+    color: var(--accent);
+    background: rgba(0,229,204,0.06);
+    border: 1px solid rgba(0,229,204,0.15);
+    padding: 2px 8px;
+    cursor: default;
+  }
+
+  /* Usage Tips */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .tip-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 18px;
+  }
+
+  .tip-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent4);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tip-card ul { list-style: none; }
+  .tip-card li {
+    font-size: 11.5px;
+    color: var(--muted);
+    padding: 4px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .tip-card li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent4);
+  }
+
+  .tip-card li strong { color: var(--text); }
+
+  /* Structure banner */
+  .structure-banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin-bottom: 48px;
+  }
+
+  .structure-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 600px) { .structure-inner { grid-template-columns: 1fr; } }
+
+  .structure-banner h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent2);
+    margin-bottom: 12px;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .footer span { color: var(--accent); }
+
+  /* Divider */
+  .divider { height: 1px; background: var(--border); margin: 8px 0 20px; }
+
+  pre { white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="tag">GitHub Copilot · Custom Agents</div>
+    <h1>Your Dev Agent<br><span>Toolkit</span></h1>
+    <p class="subtitle">8 custom agents covering every corner of your workflow — AI/ML, full-stack, system design, security, documentation, and more. Drop these .agent.md files and ship faster.</p>
+  </div>
+
+  <!-- Setup -->
+  <div class="section-title">How to Set Up</div>
+  <div class="setup-grid">
+    <div class="setup-card">
+      <h3>VS Code Setup</h3>
+      <div class="step"><div class="step-num">1</div><p>Open Copilot Chat → click the <code>agents dropdown</code> → <strong>Configure Custom Agents…</strong></p></div>
+      <div class="step"><div class="step-num">2</div><p>Choose <strong>Workspace</strong> (repo-specific) or <strong>User Profile</strong> (global across all projects)</p></div>
+      <div class="step"><div class="step-num">3</div><p>Name the file → VS Code creates <code>.github/agents/your-agent.agent.md</code></p></div>
+      <div class="step"><div class="step-num">4</div><p>Paste the agent config below → save → agent appears in dropdown instantly</p></div>
+    </div>
+    <div class="setup-card">
+      <h3>CLI & GitHub.com Setup</h3>
+      <div class="step"><div class="step-num">1</div><p>Commit the <code>.agent.md</code> files into <code>.github/agents/</code> in your repo's default branch</p></div>
+      <div class="step"><div class="step-num">2</div><p>CLI: run <code>copilot --agent=agent-name --prompt "your task"</code> from terminal</p></div>
+      <div class="step"><div class="step-num">3</div><p>GitHub.com: go to <code>github.com/copilot/agents</code> → pick repo → select agent → assign task</p></div>
+      <div class="step"><div class="step-num">4</div><p>Copilot opens a PR automatically when done. Track progress in the Agents panel.</p></div>
+    </div>
+  </div>
+
+  <!-- File Structure -->
+  <div class="section-title">Repo Structure</div>
+  <div class="structure-banner">
+    <div class="structure-inner">
+      <div>
+        <h3>Place all agents here ↓</h3>
+        <div class="code-block" data-label="directory">
+<pre><span class="cm">your-repo/</span>
+<span class="cm">└── .github/</span>
+<span class="cm">    └── agents/</span>
+<span class="tag-c">        ├── ai-engineer.agent.md</span>
+<span class="tag-c">        ├── fullstack-dev.agent.md</span>
+<span class="tag-c">        ├── ml-researcher.agent.md</span>
+<span class="tag-c">        ├── code-reviewer.agent.md</span>
+<span class="tag-c">        ├── system-designer.agent.md</span>
+<span class="tag-c">        ├── doc-writer.agent.md</span>
+<span class="tag-c">        ├── security-auditor.agent.md</span>
+<span class="tag-c">        └── gsoc-prep.agent.md</span></pre>
+        </div>
+      </div>
+      <div>
+        <h3>Agent file anatomy</h3>
+        <div class="code-block" data-label=".agent.md">
+<pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">My Agent</span>
+<span class="kw">description</span>: <span class="str">What I do and when to use me</span>
+<span class="kw">tools</span>: <span class="val">['read', 'edit', 'search', 'run_command']</span>
+<span class="kw">model</span>: <span class="str">claude-sonnet-4-5</span>  <span class="cm"># optional</span>
+<span class="cm">---</span>
+
+<span class="cm"># Your system prompt goes here</span>
+<span class="cm"># Plain markdown, up to 30,000 chars</span>
+<span class="cm"># Define persona, rules, patterns, examples</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agents -->
+  <div class="section-title">The 8 Agents</div>
+  <div class="agents-grid">
+
+    <!-- 1. AI Engineer -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-icon">🤖</div>
+        <div class="agent-meta">
+          <div class="agent-name" style="color:#00e5cc">AI Engineer</div>
+          <div class="agent-desc">LangChain · FastAPI · PyTorch · LLMs · Agents · RAG · OCR · YOLO</div>
+          <div class="agent-tags">
+            <span class="badge cyan">Python</span>
+            <span class="badge cyan">LangChain</span>
+            <span class="badge cyan">FastAPI</span>
+            <span class="badge cyan">PyTorch</span>
+            <span class="badge cyan">RAG</span>
+          </div>
+        </div>
+      </div>
+      <div class="agent-body">
+        <div class="agent-use">Your primary agent for all AI/ML work — chatbots, hospital assistants, document verification, Stella AI Nurse, MediQ. Knows your exact stack cold.</div>
+        <div class="code-block" data-label="ai-engineer.agent.md">
+<pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">AI Engineer</span>
+<span class="kw">description</span>: <span class="str">Expert in LangChain, FastAPI, PyTorch, TensorFlow,
+  RAG pipelines, LLM integrations, OCR (Tesseract/EasyOCR),
+  YOLO, conversational AI, and agentic systems. Use me for
+  any AI/ML feature, model pipeline, or inference endpoint.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'edit', 'search', 'run_command', 'create']</span>
+<span class="cm">---</span>
+
+<span class="cm">You are a senior AI engineer specializing in production-grade
+LLM applications. Stack: Python, LangChain, FastAPI, PyTorch,
+TensorFlow, scikit-learn, OpenCV, YOLO, EasyOCR, Tesseract,
+Docker, Hugging Face.</span>
+
+<span class="cm">Rules:</span>
+<span class="cm">- Always add async/await for FastAPI endpoints</span>
+<span class="cm">- Use pydantic v2 models for request/response validation</span>
+<span class="cm">- Structure LangChain apps with chains, not legacy AgentExecutor</span>
+<span class="cm">- Include logging and error handling in every pipeline</span>
+<span class="cm">- Add docstrings with param types and return types</span>
+<span class="cm">- Prefer LCEL (LangChain Expression Language) syntax</span>
+<span class="cm">- When writing model code, always add training loop + eval metrics</span>
+<span class="cm">- For OCR pipelines, always preprocess images before extraction</span></pre>
+        </div>
+        <div class="trigger-section">
+          <div class="trigger-label">Say to invoke</div>
+          <div class="triggers">
+            <span class="trigger">build a RAG pipeline for…</span>
+            <span class="trigger">add an LLM endpoint to…</span>
+            <span class="trigger">improve this YOLO model…</span>
+            <span class="trigger">create a LangChain agent that…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Full Stack Dev -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-icon">⚡</div>
+        <div class="agent-meta">
+          <div class="agent-name" style="color:#7c6af7">Full Stack Dev</div>
+          <div class="agent-desc">React · Node.js · FastAPI · Flask · REST APIs · Docker · SQL</div>
+          <div class="agent-tags">
+            <span class="badge purple">React</span>
+            <span class="badge purple">Node.js</span>
+            <span class="badge purple">Docker</span>
+            <span class="badge purple">SQL</span>
+            <span class="badge purple">Tailwind</span>
+          </div>
+        </div>
+      </div>
+      <div class="agent-body">
+        <div class="agent-use">For Ignisia website, freelance client work, Expense Tracker, Dehydrated Foods page, and any frontend or backend feature building.</div>
+        <div class="code-block" data-label="fullstack-dev.agent.md">
+<pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">Full Stack Dev</span>
+<span class="kw">description</span>: <span class="str">Expert in React, Node.js, FastAPI, Flask, REST
+  APIs, SQL, Docker, and responsive UI. Use for building
+  features, fixing bugs, creating API routes, or building
+  complete UI components and pages.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'edit', 'search', 'create', 'run_command']</span>
+<span class="cm">---</span>
+
+<span class="cm">You are a full-stack engineer. Stack: React + Tailwind CSS,
+Node.js/Express, FastAPI, Flask, PostgreSQL/MySQL, Docker,
+REST APIs, JWT auth.</span>
+
+<span class="cm">Rules:</span>
+<span class="cm">- React: functional components only, use hooks, no class components</span>
+<span class="cm">- Always make UIs mobile-first and responsive</span>
+<span class="cm">- Use Tailwind utility classes, avoid inline styles</span>
+<span class="cm">- Backend: always validate inputs and return structured errors</span>
+<span class="cm">- Add JSDoc for all exported functions</span>
+<span class="cm">- For freelance projects: consider mobile responsiveness,
+  browser compatibility, clean component separation</span>
+<span class="cm">- Use environment variables for all secrets — never hardcode</span></pre>
+        </div>
+        <div class="trigger-section">
+          <div class="trigger-label">Say to invoke</div>
+          <div class="triggers">
+            <span class="trigger">build a component for…</span>
+            <span class="trigger">create an API route that…</span>
+            <span class="trigger">fix this responsive layout…</span>
+            <span class="trigger">add auth to this endpoint…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. ML Researcher -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-icon">🧠</div>
+        <div class="agent-meta">
+          <div class="agent-name" style="color:#f0c040">ML Researcher</div>
+          <div class="agent-desc">Sklearn · Model Evaluation · Feature Eng · Kaggle · Data Pipelines</div>
+          <div class="agent-tags">
+            <span class="badge yellow">scikit-learn</span>
+            <span class="badge yellow">Pandas</span>
+            <span class="badge yellow">XGBoost</span>
+            <span class="badge yellow">Notebooks</span>
+          </div>
+        </div>
+      </div>
+      <div class="agent-body">
+        <div class="agent-use">For DataQuest hackathons, ML challenge rounds, LeetCode ML problems, MediQ CNN improvements, and any data science / model experiment work.</div>
+        <div class="code-block" data-label="ml-researcher.agent.md">
+<pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">ML Researcher</span>
+<span class="kw">description</span>: <span class="str">Expert in classical ML, deep learning, feature
+  engineering, model evaluation, and data pipelines using
+  scikit-learn, XGBoost, PyTorch, pandas, NumPy. Use for
+  experiments, preprocessing, training, and analysis.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'edit', 'search', 'run_command']</span>
+<span class="cm">---</span>
+
+<span class="cm">You are an ML researcher. Stack: Python, pandas, NumPy,
+scikit-learn, XGBoost, LightGBM, PyTorch, matplotlib,
+seaborn, Jupyter notebooks.</span>
+
+<span class="cm">Rules:</span>
+<span class="cm">- Always start with EDA before modeling</span>
+<span class="cm">- Use cross-validation, not a single train/test split</span>
+<span class="cm">- Print classification report + confusion matrix for classifiers</span>
+<span class="cm">- Use pipelines (sklearn Pipeline) to prevent data leakage</span>
+<span class="cm">- Add comments explaining WHY each preprocessing step exists</span>
+<span class="cm">- Always check class imbalance before training</span>
+<span class="cm">- For CNNs: include augmentation, dropout, batch norm by default</span></pre>
+        </div>
+        <div class="trigger-section">
+          <div class="trigger-label">Say to invoke</div>
+          <div class="triggers">
+            <span class="trigger">improve this model's accuracy…</span>
+            <span class="trigger">add feature engineering for…</span>
+            <span class="trigger">evaluate this CNN on…</span>
+            <span class="trigger">fix this data pipeline…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Code Reviewer -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-icon">🔍</div>
+        <div class="agent-meta">
+          <div class="agent-name" style="color:#ff5f40">Code Reviewer</div>
+          <div class="agent-desc">Clean Code · SOLID · Performance · Bug Detection · Complexity</div>
+          <div class="agent-tags">
+            <span class="badge orange">Python</span>
+            <span class="badge orange">JS/TS</span>
+            <span class="badge orange">C++</span>
+            <span class="badge orange">Java</span>
+          </div>
+        </div>
+      </div>
+      <div class="agent-body">
+        <div class="agent-use">Run on any PR or file before submission. Great for GSoC proposal code samples, IEEE paper code, LeetCode solutions, and client deliverables.</div>
+        <div class="code-block" data-label="code-reviewer.agent.md">
+<pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">Code Reviewer</span>
+<span class="kw">description</span>: <span class="str">Reviews Python, JavaScript/TypeScript, C++, and Java
+  code for correctness, performance, clean code principles,
+  and potential bugs. Use before any PR, submission, or demo.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'search', 'edit']</span>
+<span class="cm">---</span>
+
+<span class="cm">You are a senior code reviewer. Languages: Python, JS/TS,
+C++, Java. Focus on:</span>
+
+<span class="cm">1. Correctness: logic bugs, edge cases, off-by-one errors</span>
+<span class="cm">2. Performance: time/space complexity, unnecessary loops</span>
+<span class="cm">3. Readability: naming, structure, DRY principle</span>
+<span class="cm">4. Security: input validation, SQL injection, XSS risks</span>
+<span class="cm">5. Python specific: type hints, exception handling, memory leaks</span>
+<span class="cm">6. For LeetCode: verify both time AND space complexity</span>
+
+<span class="cm">Output format: list issues as [CRITICAL / WARN / SUGGESTION]
+with line numbers and suggested fix. Always end with a
+brief summary of overall code quality.</span></pre>
+        </div>
+        <div class="trigger-section">
+          <div class="trigger-label">Say to invoke</div>
+          <div class="triggers">
+            <span class="trigger">review this file for bugs…</span>
+            <span class="trigger">check this solution's complexity…</span>
+            <span class="trigger">seccheck all files in /src…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. System Designer -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-icon">🏗️</div>
+        <div class="agent-meta">
+          <div class="agent-name" style="color:#00e5cc">System Designer</div>
+          <div class="agent-desc">Architecture · Diagrams · Microservices · API Design · Scalability</div>
+          <div class="agent-tags">
+            <span class="badge cyan">Mermaid</span>
+            <span class="badge cyan">REST</span>
+            <span class="badge cyan">Microservices</span>
+            <span class="badge cyan">Schemas</span>
+          </div>
+        </div>
+      </div>
+      <div class="agent-body">
+        <div class="agent-use">For Stella AI Nurse architecture, Blockchain Carbon Credit system design, MediQ backend design, Software Engineering exam prep, and IEEE paper diagrams.</div>
+        <div class="code-block" data-label="system-designer.agent.md">
+<pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">System Designer</span>
+<span class="kw">description</span>: <span class="str">Expert at software architecture, system design,
+  REST API design, database schemas, and Mermaid diagrams.
+  Use for planning systems, designing APIs, or generating
+  architecture docs before implementation.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'search', 'create', 'edit']</span>
+<span class="cm">---</span>
+
+<span class="cm">You are a software architect. Specialize in: REST API design,
+microservices, database schema design (SQL + NoSQL),
+event-driven systems, Docker/container orchestration.</span>
+
+<span class="cm">Always produce:</span>
+<span class="cm">- Mermaid.js architecture/flow diagrams</span>
+<span class="cm">- Component breakdown with responsibilities</span>
+<span class="cm">- API endpoint table (method, path, auth, request, response)</span>
+<span class="cm">- Database schema with relationships</span>
+<span class="cm">- Scalability notes and potential bottlenecks</span>
+<span class="cm">- For AI systems: include data flow + model serving layer</span></pre>
+        </div>
+        <div class="trigger-section">
+          <div class="trigger-label">Say to invoke</div>
+          <div class="triggers">
+            <span class="trigger">design the system for…</span>
+            <span class="trigger">create API schema for…</span>
+            <span class="trigger">draw an architecture diagram of…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Doc Writer -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-icon">📝</div>
+        <div class="agent-meta">
+          <div class="agent-name" style="color:#7c6af7">Doc Writer</div>
+          <div class="agent-desc">README · GSoC Proposals · IEEE Papers · Docstrings · Changelogs</div>
+          <div class="agent-tags">
+            <span class="badge purple">Markdown</span>
+            <span class="badge purple">IEEE</span>
+            <span class="badge purple">GSoC</span>
+            <span class="badge purple">README</span>
+          </div>
+        </div>
+      </div>
+      <div class="agent-body">
+        <div class="agent-use">Write GSoC discussion posts (human-sounding, not AI-polished), IEEE paper sections, project READMEs for Stella and MediQ, and course notes.</div>
+        <div class="code-block" data-label="doc-writer.agent.md">
+<pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">Doc Writer</span>
+<span class="kw">description</span>: <span class="str">Expert at technical documentation, README files,
+  GSoC proposals, IEEE-style papers, and code docstrings.
+  Use for writing or improving any project documentation,
+  proposals, or academic writing.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'edit', 'search', 'create']</span>
+<span class="cm">---</span>
+
+<span class="cm">You write clean, professional technical documentation.</span>
+
+<span class="cm">For README files: include badges, clear install steps,
+usage examples, architecture overview, contributing guide.</span>
+
+<span class="cm">For GSoC proposals: write in natural, concise English.
+Avoid AI-polished buzzwords. Be specific about deliverables,
+timelines, and technical approach. Sound like a student
+who knows their stuff, not a marketing document.</span>
+
+<span class="cm">For IEEE papers: follow IMRaD structure, use passive voice
+sparingly, cite properly, keep abstracts under 250 words.</span>
+
+<span class="cm">For docstrings: use Google style, include Args, Returns,
+Raises, and a one-line summary.</span></pre>
+        </div>
+        <div class="trigger-section">
+          <div class="trigger-label">Say to invoke</div>
+          <div class="triggers">
+            <span class="trigger">write README for this project…</span>
+            <span class="trigger">improve this GSoC proposal…</span>
+            <span class="trigger">add docstrings to all functions…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Security Auditor -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-icon">🛡️</div>
+        <div class="agent-meta">
+          <div class="agent-name" style="color:#ff5f40">Security Auditor</div>
+          <div class="agent-desc">OWASP · Dependency Scan · Secrets · Injection · Auth Flaws</div>
+          <div class="agent-tags">
+            <span class="badge orange">OWASP Top 10</span>
+            <span class="badge orange">CVE Scan</span>
+            <span class="badge orange">Secrets</span>
+          </div>
+        </div>
+      </div>
+      <div class="agent-body">
+        <div class="agent-use">Run before deploying any client website, open-sourcing Stella/MediQ repos, or submitting for GSoC. Catches leaked keys, SQL injection, XSS, and more.</div>
+        <div class="code-block" data-label="security-auditor.agent.md">
+<pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">Security Auditor</span>
+<span class="kw">description</span>: <span class="str">Audits code for OWASP Top 10 vulnerabilities,
+  exposed secrets, injection risks, insecure dependencies,
+  and auth flaws. Use before any public release, deployment,
+  or when the word "secaudit" appears.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'search', 'run_command']</span>
+<span class="cm">---</span>
+
+<span class="cm">You are a security auditor. Check all files for:</span>
+
+<span class="cm">1. SECRETS: hardcoded API keys, tokens, passwords, DB strings</span>
+<span class="cm">2. INJECTION: SQL injection, command injection, prompt injection
+   in LLM pipelines</span>
+<span class="cm">3. AUTH: broken auth, JWT misuse, missing rate limiting</span>
+<span class="cm">4. XSS/CSRF: especially in React frontends</span>
+<span class="cm">5. DEPENDENCIES: flag packages with known CVEs</span>
+<span class="cm">6. AI-SPECIFIC: prompt injection in LangChain agents,
+   insecure deserialization of model inputs</span>
+
+<span class="cm">Output: structured report with severity [CRITICAL/HIGH/MED/LOW],
+file:line, description, and exact remediation steps.</span></pre>
+        </div>
+        <div class="trigger-section">
+          <div class="trigger-label">Say to invoke</div>
+          <div class="triggers">
+            <span class="trigger">secaudit the entire /src…</span>
+            <span class="trigger">check for exposed keys in…</span>
+            <span class="trigger">audit this before deployment…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. GSoC / Open Source Agent -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-icon">🚀</div>
+        <div class="agent-meta">
+          <div class="agent-name" style="color:#f0c040">GSoC Contributor</div>
+          <div class="agent-desc">Catrobat · API Dash · Gemini CLI · Open Source Contribution Patterns</div>
+          <div class="agent-tags">
+            <span class="badge yellow">GSoC 2026</span>
+            <span class="badge yellow">Gemini API</span>
+            <span class="badge yellow">Open Source</span>
+          </div>
+        </div>
+      </div>
+      <div class="agent-body">
+        <div class="agent-use">Purpose-built for your GSoC 2026 targets: Catrobat (Gemini Care Assistant), API Dash (Multimodal AI Eval), Gemini CLI (Voice Mode). Also helps with first-contribution workflows.</div>
+        <div class="code-block" data-label="gsoc-contributor.agent.md">
+<pre><span class="cm">---</span>
+<span class="kw">name</span>: <span class="str">GSoC Contributor</span>
+<span class="kw">description</span>: <span class="str">Specializes in open-source contribution workflows,
+  understanding foreign codebases, writing GSoC proposals,
+  and implementing features for Catrobat, API Dash, and
+  Gemini CLI. Use for any GSoC-related task or open-source
+  contribution.</span>
+<span class="kw">tools</span>: <span class="val">['read', 'search', 'edit', 'create', 'run_command', 'fetch']</span>
+<span class="cm">---</span>
+
+<span class="cm">You help with Google Summer of Code preparation and
+open-source contributions. Key orgs: Catrobat, API Dash,
+Gemini CLI. Technologies: Dart/Flutter (Catrobat),
+Dart (API Dash), Node.js/TypeScript (Gemini CLI),
+Gemini API, Google AI SDK.</span>
+
+<span class="cm">When exploring a codebase:</span>
+<span class="cm">- Map the folder structure first</span>
+<span class="cm">- Find the entry point and trace execution</span>
+<span class="cm">- Identify patterns used (state mgmt, DI, conventions)</span>
+<span class="cm">- Suggest a "good first issue" starting point</span>
+
+<span class="cm">For proposals: write clear deliverables per week,
+realistic timelines, mention specific functions/files
+you'll change. Be concrete, not vague.</span>
+
+<span class="cm">For discussion posts: keep it natural, short, curious.
+No buzzwords. Sound like an engaged student, not a resume.</span></pre>
+        </div>
+        <div class="trigger-section">
+          <div class="trigger-label">Say to invoke</div>
+          <div class="triggers">
+            <span class="trigger">understand this open source codebase…</span>
+            <span class="trigger">help implement GSoC feature for…</span>
+            <span class="trigger">write a contribution to API Dash…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tips -->
+  <div class="section-title">Efficiency Tips</div>
+  <div class="tips-grid">
+
+    <div class="tip-card">
+      <h4>⚡ Context Loading</h4>
+      <ul>
+        <li><strong>Use @workspace</strong> before complex tasks so the agent sees your full repo structure</li>
+        <li><strong>Name the file</strong> explicitly: "review src/api/chatbot.py" not "review my chatbot"</li>
+        <li><strong>Chain agents:</strong> Run System Designer first → then Full Stack Dev to implement it</li>
+      </ul>
+    </div>
+
+    <div class="tip-card">
+      <h4>🎯 Trigger Words</h4>
+      <ul>
+        <li>Add <strong>trigger words</strong> in the description (like "secaudit", "gsoc", "review") — Copilot auto-routes</li>
+        <li><strong>CLI flag</strong>: <code>--agent=ai-engineer</code> forces a specific agent without typing</li>
+        <li><strong>Handoffs</strong>: Use VS Code's handoff feature to chain agents in one session</li>
+      </ul>
+    </div>
+
+    <div class="tip-card">
+      <h4>🧠 Model Selection</h4>
+      <ul>
+        <li>Use <strong>claude-sonnet</strong> for code-heavy tasks (AI Engineer, Full Stack Dev)</li>
+        <li>Use <strong>GPT-4.1</strong> (included free) for fast, routine tasks like docstrings</li>
+        <li>Use <strong>Claude Opus</strong> for GSoC proposals and system design — bigger context</li>
+      </ul>
+    </div>
+
+    <div class="tip-card">
+      <h4>📦 Global vs Workspace</h4>
+      <ul>
+        <li><strong>User profile agents</strong> (global): Code Reviewer, Doc Writer, Security Auditor</li>
+        <li><strong>Workspace agents</strong> (repo-specific): AI Engineer, GSoC Contributor, Full Stack Dev</li>
+        <li>Global ones are available across every project you open in VS Code</li>
+      </ul>
+    </div>
+
+    <div class="tip-card">
+      <h4>🔄 Workflow Combos</h4>
+      <ul>
+        <li><strong>New feature:</strong> System Designer → Full Stack Dev → Code Reviewer</li>
+        <li><strong>AI project:</strong> AI Engineer → ML Researcher → Security Auditor → Doc Writer</li>
+        <li><strong>GSoC:</strong> GSoC Contributor (explore) → Doc Writer (proposal) → Code Reviewer (PR)</li>
+      </ul>
+    </div>
+
+    <div class="tip-card">
+      <h4>🛠 MCP Supercharger</h4>
+      <ul>
+        <li>Connect <strong>GitHub MCP</strong> to let agents read issues, PRs, and repo data natively</li>
+        <li>Add <strong>Figma MCP</strong> to Full Stack Dev for design-to-code directly</li>
+        <li>Add <strong>your local docs MCP</strong> so agents know your team conventions</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>GitHub Copilot Custom Agents — <span>Tanish's Toolkit</span></div>
+    <div>March 2026 · 8 agents · All platforms</div>
+  </div>
+
+</div>
+</body>
+</html>
