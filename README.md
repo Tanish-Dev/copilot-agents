@@ -31,17 +31,20 @@ Each agent:
 ## Agents
 
 | Agent | Domain | Key Technologies |
-|-------|--------|-----------------|
+|-------|--------|------------------|
 | [🤖 AI Engineer](#-ai-engineer) | LLMs, RAG, Inference | LangChain, FastAPI, PyTorch, YOLO, OCR |
 | [⚡ Full Stack Dev](#-full-stack-dev) | Frontend + Backend | React, Node.js, Docker, SQL, REST APIs |
 | [🧠 ML Researcher](#-ml-researcher) | Classical ML, Data Science | scikit-learn, XGBoost, Pandas, Notebooks |
 | [🔍 Code Reviewer](#-code-reviewer) | Code Quality | Python, JS/TS, C++, Java (all languages) |
 | [🏗️ System Designer](#️-system-designer) | Architecture | REST, Microservices, Mermaid, DB Schemas |
-| [📝 Doc Writer](#-doc-writer) | Documentation | README, GSoC Proposals, IEEE Papers |
+| [📝 Doc Writer](#-doc-writer) | Documentation | README, Proposals, IEEE Papers, Docstrings |
 | [🛡️ Security Auditor](#️-security-auditor) | Security | OWASP Top 10, Secrets, Injection, CVEs |
-| [🚀 GSoC Contributor](#-gsoc-contributor) | Open Source | Contribution workflows, Codebases |
+| [🌍 Open Source Contributor](#-open-source-contributor) | Open Source | Codebase navigation, PRs, Proposals, Beginner guide |
+| [🎨 UI Designer](#-ui-designer) | Frontend Design | Design extraction, Screenshot-to-code, CSS systems |
 
 ---
+
+> **9 agents** covering every phase of software development.
 
 ## Quick Start
 
@@ -93,7 +96,8 @@ awesome-dev-agents/
 │   ├── system-designer.agent.md
 │   ├── doc-writer.agent.md
 │   ├── security-auditor.agent.md
-│   └── gsoc-contributor.agent.md
+│   ├── open-source-contributor.agent.md
+│   └── ui-designer.agent.md
 ├── docs/                           # Interactive web showcase
 │   └── index.html
 ├── CONTRIBUTING.md
@@ -273,24 +277,48 @@ check my LangChain agent for prompt injection vulnerabilities
 
 ---
 
-### 🚀 GSoC Contributor
+### 🌍 Open Source Contributor
 
-> **File:** [`agents/gsoc-contributor.agent.md`](agents/gsoc-contributor.agent.md)
+> **File:** [`agents/open-source-contributor.agent.md`](agents/open-source-contributor.agent.md)
 
-Helps navigate unfamiliar open-source codebases, write GSoC proposals, and implement features that align with project conventions.
+Guides you through the entire open-source contribution journey — from finding the right project, understanding the codebase, making your first PR, to writing program proposals (GSoC, Outreachy, etc). Beginner-friendly but deep enough for experienced contributors.
 
 **When to use:**
-- Exploring a new open-source project for contribution
-- Writing a GSoC or similar program proposal
-- Implementing a feature that matches existing patterns
-- Preparing discussion posts for maintainers
+- You want to start contributing to open source but don't know where to begin
+- Exploring or understanding a new unfamiliar codebase
+- Writing your first (or tenth) PR for an open-source project
+- Drafting a GSoC/Outreachy/similar program proposal
+- Writing a maintainer discussion post or issue comment
 
 **Try saying:**
 ```
-help me understand how this open-source codebase is structured
+help me find a good open source project to contribute to given my Python skills
+help me understand how this codebase is structured before I start coding
+review my PR before I open it — does it match the project's conventions?
 write a GSoC proposal for this project idea
-implement this feature following the existing patterns
-write a maintainer discussion post about this issue
+help me write a maintainer discussion post for this issue
+```
+
+---
+
+### 🎨 UI Designer
+
+> **File:** [`agents/ui-designer.agent.md`](agents/ui-designer.agent.md)
+
+Extracts the design language from a reference screenshot or URL — fonts, colors, spacing rhythm, card patterns, motion — and applies it precisely to your actual content and code. Produces frontends that look deliberately crafted, not AI-generated.
+
+**When to use:**
+- You have a screenshot of a design you love and want to apply its style to your project
+- Your UI looks generic and you want to upgrade it to match a specific aesthetic
+- You want a proper CSS token system extracted from a reference design
+- Redesigning a page while keeping content identical
+
+**Try saying:**
+```
+[attach screenshot] — make my dashboard look like this, same fonts and color system
+extract the design language from linear.app and apply it to my settings page
+my site looks too AI-generated — redesign it to match this reference style
+convert this Figma screenshot's design tokens into CSS custom properties
 ```
 
 ---
@@ -303,9 +331,11 @@ These agent combinations work especially well together:
 |------|------------|
 | New feature | System Designer → Full Stack Dev → Code Reviewer |
 | AI/ML project | AI Engineer → ML Researcher → Security Auditor → Doc Writer |
-| Open source contribution | GSoC Contributor → Code Reviewer → Doc Writer |
+| Open source contribution | Open Source Contributor → Code Reviewer → Doc Writer |
 | Secure deployment | Full Stack Dev → Security Auditor → Doc Writer |
 | Research project | ML Researcher → System Designer → Doc Writer |
+| Frontend redesign | UI Designer → Full Stack Dev → Code Reviewer |
+| First OSS contribution | Open Source Contributor → Code Reviewer → Doc Writer |
 
 ---
 
