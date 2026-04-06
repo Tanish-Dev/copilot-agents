@@ -7,22 +7,23 @@
     <title>Awesome Dev Agents — GitHub Copilot Custom Agents for Software Development</title>
     <meta name="description"
         content="9 battle-tested custom agents for the complete software development lifecycle. Drop these .agent.md files into your project and ship better software, faster.">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@700;800&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #070a0f;
-            --surface: #0d1117;
-            --surface2: #161b22;
-            --border: #1e2733;
-            --accent: #00e5cc;
-            --accent2: #ff5f40;
-            --accent3: #7c6af7;
-            --accent4: #f0c040;
-            --text: #e6edf3;
-            --muted: #7d8590;
-            --code-bg: #0a0e14;
+            --bg: #f5f9ff;
+            --surface: #ffffff;
+            --surface2: #eef5ff;
+            --border: #d0e2fb;
+            --accent: #0084ff;
+            --accent2: #1d4ed8;
+            --accent3: #319aff;
+            --accent4: #60b1ff;
+            --text: #0f172a;
+            --muted: #4c607e;
+            --code-bg: #0a1528;
+            --code-text: #dbe8ff;
         }
 
         * {
@@ -32,47 +33,456 @@
         }
 
         body {
-            background: var(--bg);
+            background:
+                radial-gradient(900px 420px at 8% -14%, rgba(96, 177, 255, 0.16), transparent 60%),
+                radial-gradient(860px 380px at 92% -16%, rgba(49, 154, 255, 0.12), transparent 58%),
+                var(--bg);
             color: var(--text);
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Inter', sans-serif;
             font-size: 13px;
             line-height: 1.7;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
 
-        /* Animated grid background */
+        /* Subtle grid background */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
             background-image:
-                linear-gradient(rgba(0, 229, 204, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 229, 204, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
+                linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+            background-size: 44px 44px;
             pointer-events: none;
             z-index: 0;
         }
 
-        /* Radial glow */
+        /* Soft wash */
         body::after {
             content: '';
             position: fixed;
-            top: -20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 400px;
-            background: radial-gradient(ellipse, rgba(0, 229, 204, 0.04) 0%, transparent 70%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(246, 248, 252, 0) 45%);
             pointer-events: none;
             z-index: 0;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 40px 24px 80px;
             position: relative;
             z-index: 1;
+        }
+
+        /* ─── Liquid Glass Hero ─── */
+        .liquid-hero {
+            position: relative;
+            background: #ffffff;
+            overflow: hidden;
+            padding: 26px 0 68px;
+            isolation: isolate;
+        }
+
+        .liquid-hero::before,
+        .liquid-hero::after {
+            content: '';
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(88px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .liquid-hero::before {
+            width: 520px;
+            height: 380px;
+            top: -182px;
+            left: -118px;
+            background: radial-gradient(ellipse at center,
+                    rgba(96, 177, 255, 0.46) 0%,
+                    rgba(96, 177, 255, 0.22) 52%,
+                    rgba(96, 177, 255, 0) 100%);
+        }
+
+        .liquid-hero::after {
+            width: 460px;
+            height: 330px;
+            top: -120px;
+            left: 86px;
+            background: radial-gradient(ellipse at center,
+                    rgba(49, 154, 255, 0.4) 0%,
+                    rgba(49, 154, 255, 0.18) 58%,
+                    rgba(49, 154, 255, 0) 100%);
+        }
+
+        .liquid-hero-shell {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-nav-wrap {
+            position: sticky;
+            top: 30px;
+            z-index: 40;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 56px;
+        }
+
+        .glass-nav {
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 10px 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.3);
+            -webkit-backdrop-filter: blur(50px);
+            backdrop-filter: blur(50px);
+            box-shadow: inset 0px 4px 4px 0px rgba(255, 255, 255, 0.25),
+                0 14px 34px rgba(49, 154, 255, 0.08);
+        }
+
+        .glass-logo {
+            font-family: 'Fustat', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: #0f172a;
+            text-decoration: none;
+            padding: 0 8px 0 4px;
+        }
+
+        .glass-nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .glass-nav-links a {
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(15, 23, 42, 0.78);
+            transition: color 0.2s ease;
+        }
+
+        .glass-nav-links a:hover {
+            color: #0084ff;
+        }
+
+        .glass-signup {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0f172a;
+            padding: 8px 12px 8px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.48);
+            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(18px);
+            box-shadow: inset 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .glass-signup:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.62);
+        }
+
+        .glass-signup-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.85);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .glass-signup-icon svg {
+            width: 11px;
+            height: 11px;
+            stroke: #0f172a;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .liquid-main {
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: center;
+            gap: 28px;
+            min-height: 640px;
+        }
+
+        .liquid-copy {
+            max-width: 740px;
+        }
+
+        .rating-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+            margin-bottom: 26px;
+        }
+
+        .rating-stars {
+            display: inline-flex;
+            gap: 4px;
+            color: #ff801e;
+            line-height: 1;
+            font-size: 14px;
+            letter-spacing: 0;
+        }
+
+        .rating-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(15, 23, 42, 0.74);
+        }
+
+        .liquid-title {
+            font-family: 'Fustat', sans-serif;
+            font-size: clamp(42px, 7.2vw, 75px);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            color: #0f172a;
+            margin-bottom: 24px;
+            max-width: 11ch;
+        }
+
+        .liquid-subheadline {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            letter-spacing: -1px;
+            color: rgba(15, 23, 42, 0.76);
+            max-width: 650px;
+            margin-bottom: 26px;
+        }
+
+        .hero-install-wrap {
+            max-width: 720px;
+        }
+
+        .hero-install-box {
+            margin: 14px 0 10px;
+            background: #09152a;
+            color: #dbe8ff;
+            border: 1px solid rgba(96, 177, 255, 0.28);
+            border-radius: 16px;
+            padding: 14px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 18px 38px rgba(0, 132, 255, 0.18);
+        }
+
+        .hero-install-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(96, 177, 255, 0.16);
+            color: #b9d7ff;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 4px 9px;
+        }
+
+        .hero-install-box pre {
+            margin: 0;
+            padding-right: 184px;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 12px;
+        }
+
+        .hero-install-copy {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(96, 177, 255, 0.45);
+            background: rgba(0, 132, 255, 0.32);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            padding: 7px 12px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: transform 0.24s ease, background 0.24s ease;
+        }
+
+        .hero-install-copy:hover {
+            transform: scale(1.02);
+            background: rgba(0, 132, 255, 0.58);
+        }
+
+        .hero-install-note {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: rgba(15, 23, 42, 0.74);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-install-note code {
+            background: rgba(0, 132, 255, 0.11);
+            color: #0066cc;
+            padding: 2px 7px;
+            border-radius: 6px;
+        }
+
+        .liquid-orb-stage {
+            position: relative;
+            min-height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        .liquid-orb-video {
+            width: min(560px, 80vw);
+            height: auto;
+            transform: translate(3%, 2%) scale(1.02);
+            mix-blend-mode: screen;
+            filter: hue-rotate(-55deg) saturate(250%) brightness(1.2) contrast(1.1);
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .trusted-strip {
+            margin-top: 34px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(15, 23, 42, 0.1);
+        }
+
+        .trusted-label {
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(15, 23, 42, 0.66);
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        .trusted-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 44px;
+        }
+
+        .trusted-logo {
+            opacity: 0.58;
+            filter: grayscale(1);
+        }
+
+        .trusted-logo svg {
+            display: block;
+            height: 28px;
+            width: auto;
+        }
+
+        @media (min-width: 1100px) {
+            .liquid-main {
+                grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+                min-height: 620px;
+                gap: 18px;
+            }
+
+            .liquid-orb-video {
+                width: min(650px, 56vw);
+                transform: translate(4%, 2%) scale(1.06);
+            }
+
+            .trusted-logos {
+                gap: 100px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .liquid-hero {
+                padding: 20px 0 56px;
+            }
+
+            .glass-nav-wrap {
+                top: 18px;
+                margin-bottom: 38px;
+            }
+
+            .glass-nav {
+                max-width: 100%;
+            }
+
+            .glass-nav-links {
+                display: none;
+            }
+
+            .liquid-title {
+                letter-spacing: -1.2px;
+            }
+
+            .liquid-subheadline {
+                font-size: 16px;
+                letter-spacing: -0.4px;
+            }
+
+            .liquid-main {
+                min-height: 0;
+                gap: 18px;
+            }
+
+            .liquid-orb-stage {
+                min-height: 280px;
+            }
+
+            .liquid-orb-video {
+                width: min(450px, 90vw);
+                transform: translate(0, 0) scale(0.94);
+            }
+
+            .hero-install-box pre {
+                padding-right: 0;
+                margin-top: 22px;
+            }
+
+            .hero-install-copy {
+                position: static;
+                margin-top: 10px;
+                width: 100%;
+            }
         }
 
         /* ─── Nav ─── */
@@ -86,7 +496,7 @@
         }
 
         .nav-logo {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Satoshi', sans-serif;
             font-weight: 800;
             font-size: 14px;
             color: var(--accent);
@@ -113,8 +523,8 @@
         }
 
         .nav-cta {
-            background: rgba(0, 229, 204, 0.1);
-            border: 1px solid rgba(0, 229, 204, 0.3);
+            background: rgba(15, 118, 110, 0.1);
+            border: 1px solid rgba(15, 118, 110, 0.3);
             color: var(--accent) !important;
             padding: 5px 14px !important;
             text-transform: none !important;
@@ -124,8 +534,22 @@
         }
 
         .nav-cta:hover {
-            background: rgba(0, 229, 204, 0.2) !important;
+            background: rgba(15, 118, 110, 0.2) !important;
             color: var(--accent) !important;
+        }
+
+        @media (max-width: 760px) {
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav-links {
+                width: 100%;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
         }
 
         /* ─── Hero ─── */
@@ -138,15 +562,15 @@
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--accent);
-            background: rgba(0, 229, 204, 0.08);
-            border: 1px solid rgba(0, 229, 204, 0.2);
+            background: rgba(15, 118, 110, 0.08);
+            border: 1px solid rgba(15, 118, 110, 0.2);
             padding: 4px 12px;
             display: inline-block;
             margin-bottom: 20px;
         }
 
         h1 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Satoshi', sans-serif;
             font-size: clamp(32px, 6vw, 60px);
             font-weight: 800;
             line-height: 1.05;
@@ -182,7 +606,7 @@
             align-items: center;
             gap: 8px;
             padding: 10px 20px;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Satoshi', sans-serif;
             font-size: 11px;
             letter-spacing: 0.05em;
             text-decoration: none;
@@ -195,10 +619,12 @@
             background: var(--accent);
             color: var(--bg);
             font-weight: 600;
+            box-shadow: inset 0px 4px 4px 0px rgba(255, 255, 255, 0.35),
+                0 12px 26px rgba(0, 132, 255, 0.2);
         }
 
         .btn-primary:hover {
-            background: #00ccb4;
+            background: #0672d8;
         }
 
         .btn-outline {
@@ -227,7 +653,7 @@
         }
 
         .stat-num {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Satoshi', sans-serif;
             font-size: 24px;
             font-weight: 800;
             color: var(--text);
@@ -247,12 +673,12 @@
 
         /* ─── Section ─── */
         .section-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 11px;
+            font-family: 'Fustat', sans-serif;
+            font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--muted);
+            color: #1d4ed8;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -267,43 +693,10 @@
         }
 
         /* ─── Quick Start ─── */
-        .quickstart-tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .tab-btn {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding: 8px 16px;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid transparent;
+        .setup-intro {
             color: var(--muted);
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: -1px;
-        }
-
-        .tab-btn.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-
-        .tab-btn:hover {
-            color: var(--text);
-        }
-
-        .tab-panel {
-            display: none;
-        }
-
-        .tab-panel.active {
-            display: block;
+            margin: -8px 0 18px;
+            max-width: 760px;
         }
 
         .setup-grid {
@@ -320,10 +713,15 @@
         }
 
         .setup-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(49, 154, 255, 0.22);
             padding: 20px;
             position: relative;
+            border-radius: 18px;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.7),
+                0 14px 34px rgba(49, 154, 255, 0.1);
         }
 
         .setup-card::before {
@@ -333,18 +731,106 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: var(--accent3);
+            background: linear-gradient(90deg, rgba(96, 177, 255, 0.9), rgba(0, 132, 255, 0.9));
         }
 
         .setup-card h3 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Fustat', sans-serif;
             font-size: 12px;
             font-weight: 700;
-            color: var(--accent3);
+            color: #006fd9;
             margin-bottom: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .install-option p {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .command-box {
+            margin: 14px 0 16px;
+            background: #0a1528;
+            color: var(--code-text);
+            border: 1px solid rgba(96, 177, 255, 0.24);
+            border-radius: 12px;
+            padding: 14px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 14px 32px rgba(0, 132, 255, 0.16);
+        }
+
+        .command-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(96, 177, 255, 0.16);
+            color: #b9d7ff;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 4px 9px;
+        }
+
+        .command-box pre {
+            margin: 0;
+            padding-right: 124px;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 12px;
+        }
+
+        .copy-command-btn {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(96, 177, 255, 0.45);
+            background: rgba(0, 132, 255, 0.32);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-command-btn:hover {
+            border-color: #bbdcff;
+            color: #ffffff;
+            background: rgba(0, 132, 255, 0.58);
+        }
+
+        .setup-note {
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(49, 154, 255, 0.2);
+            border-radius: 14px;
+            padding: 14px 16px;
+            font-size: 12px;
+            margin-bottom: 20px;
+            color: var(--muted);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.7),
+                0 14px 28px rgba(49, 154, 255, 0.09);
+        }
+
+        .setup-note strong {
+            color: var(--text);
+        }
+
+        .vscode-note {
+            margin-bottom: 48px;
+        }
+
+        .vscode-note .step {
+            margin-bottom: 8px;
         }
 
         .step {
@@ -358,9 +844,9 @@
             width: 20px;
             height: 20px;
             min-width: 20px;
-            background: rgba(124, 106, 247, 0.15);
-            border: 1px solid var(--accent3);
-            color: var(--accent3);
+            background: rgba(0, 132, 255, 0.12);
+            border: 1px solid rgba(0, 132, 255, 0.5);
+            color: #0672d8;
             font-size: 10px;
             font-weight: 600;
             display: flex;
@@ -374,10 +860,23 @@
         }
 
         .step p code {
-            background: rgba(124, 106, 247, 0.12);
-            color: var(--accent3);
+            background: rgba(0, 132, 255, 0.12);
+            color: #0672d8;
             padding: 1px 5px;
             font-size: 11px;
+        }
+
+        @media (max-width: 700px) {
+            .command-box pre {
+                padding-right: 0;
+                margin-top: 22px;
+            }
+
+            .copy-command-btn {
+                position: static;
+                margin-top: 10px;
+                width: 100%;
+            }
         }
 
         /* ─── Agent Cards ─── */
@@ -388,16 +887,22 @@
         }
 
         .agent-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(49, 154, 255, 0.22);
             overflow: hidden;
             transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+            border-radius: 18px;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.7),
+                0 14px 28px rgba(49, 154, 255, 0.08);
         }
 
         .agent-card:hover {
-            border-color: var(--accent);
+            border-color: rgba(0, 132, 255, 0.45);
             transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(0, 229, 204, 0.06);
+            box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.7),
+                0 18px 36px rgba(0, 132, 255, 0.14);
         }
 
         .agent-header {
@@ -415,8 +920,9 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border);
+            background: linear-gradient(160deg, #f3f8ff 0%, #ddeeff 100%);
+            border: 1px solid rgba(49, 154, 255, 0.22);
+            border-radius: 12px;
         }
 
         .agent-meta {
@@ -425,7 +931,7 @@
         }
 
         .agent-name {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Fustat', sans-serif;
             font-size: 15px;
             font-weight: 700;
             margin-bottom: 4px;
@@ -452,27 +958,27 @@
         }
 
         .badge.cyan {
-            color: var(--accent);
-            border-color: rgba(0, 229, 204, 0.3);
-            background: rgba(0, 229, 204, 0.06);
+            color: #0078e6;
+            border-color: rgba(0, 132, 255, 0.28);
+            background: rgba(0, 132, 255, 0.09);
         }
 
         .badge.orange {
-            color: var(--accent2);
-            border-color: rgba(255, 95, 64, 0.3);
-            background: rgba(255, 95, 64, 0.06);
+            color: #2563eb;
+            border-color: rgba(37, 99, 235, 0.3);
+            background: rgba(37, 99, 235, 0.09);
         }
 
         .badge.purple {
-            color: var(--accent3);
-            border-color: rgba(124, 106, 247, 0.3);
-            background: rgba(124, 106, 247, 0.06);
+            color: #0f63db;
+            border-color: rgba(49, 154, 255, 0.32);
+            background: rgba(49, 154, 255, 0.09);
         }
 
         .badge.yellow {
-            color: var(--accent4);
-            border-color: rgba(240, 192, 64, 0.3);
-            background: rgba(240, 192, 64, 0.06);
+            color: #0a72dc;
+            border-color: rgba(96, 177, 255, 0.36);
+            background: rgba(96, 177, 255, 0.13);
         }
 
         .agent-body {
@@ -484,19 +990,22 @@
             color: var(--text);
             margin-bottom: 14px;
             padding: 10px 12px;
-            background: rgba(255, 255, 255, 0.02);
-            border-left: 2px solid var(--accent);
+            background: rgba(49, 154, 255, 0.08);
+            border-left: 2px solid rgba(0, 132, 255, 0.8);
             line-height: 1.6;
+            border-radius: 10px;
         }
 
         .code-block {
             background: var(--code-bg);
             border: 1px solid var(--border);
+            color: var(--code-text);
             padding: 14px 16px;
             font-size: 11px;
             overflow-x: auto;
             position: relative;
             margin-bottom: 12px;
+            border-radius: 12px;
         }
 
         .code-block::before {
@@ -537,19 +1046,20 @@
             bottom: 8px;
             right: 8px;
             padding: 3px 10px;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Satoshi', sans-serif;
             font-size: 9px;
             letter-spacing: 0.1em;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            color: var(--muted);
+            background: rgba(226, 232, 240, 0.18);
+            border: 1px solid #334155;
+            color: #dbe8f8;
             cursor: pointer;
             transition: all 0.2s;
+            border-radius: 6px;
         }
 
         .copy-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: #93c5fd;
+            color: #ffffff;
         }
 
         .trigger-section {
@@ -572,16 +1082,17 @@
 
         .trigger {
             font-size: 10px;
-            color: var(--accent);
-            background: rgba(0, 229, 204, 0.06);
-            border: 1px solid rgba(0, 229, 204, 0.15);
+            color: #0672d8;
+            background: rgba(49, 154, 255, 0.08);
+            border: 1px solid rgba(49, 154, 255, 0.24);
             padding: 3px 10px;
             cursor: default;
             transition: background 0.2s;
+            border-radius: 999px;
         }
 
         .trigger:hover {
-            background: rgba(0, 229, 204, 0.12);
+            background: rgba(49, 154, 255, 0.16);
         }
 
         /* ─── Combos ─── */
@@ -593,24 +1104,29 @@
         }
 
         .combo-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(49, 154, 255, 0.22);
             padding: 18px 20px;
             display: flex;
             flex-direction: column;
             gap: 10px;
             transition: border-color 0.2s;
+            border-radius: 18px;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.7),
+                0 14px 28px rgba(49, 154, 255, 0.08);
         }
 
         .combo-card:hover {
-            border-color: var(--accent3);
+            border-color: rgba(0, 132, 255, 0.45);
         }
 
         .combo-label {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Fustat', sans-serif;
             font-size: 11px;
             font-weight: 700;
-            color: var(--accent4);
+            color: #0672d8;
             letter-spacing: 0.05em;
         }
 
@@ -623,10 +1139,11 @@
         }
 
         .combo-agent {
-            background: rgba(124, 106, 247, 0.1);
-            border: 1px solid rgba(124, 106, 247, 0.25);
-            color: var(--accent3);
+            background: rgba(49, 154, 255, 0.12);
+            border: 1px solid rgba(49, 154, 255, 0.28);
+            color: #0672d8;
             padding: 3px 10px;
+            border-radius: 999px;
         }
 
         .combo-arrow {
@@ -649,16 +1166,21 @@
         }
 
         .format-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(49, 154, 255, 0.22);
             padding: 20px;
+            border-radius: 18px;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.7),
+                0 14px 28px rgba(49, 154, 255, 0.08);
         }
 
         .format-card h3 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Fustat', sans-serif;
             font-size: 12px;
             font-weight: 700;
-            color: var(--accent2);
+            color: #0672d8;
             margin-bottom: 14px;
         }
 
@@ -671,21 +1193,26 @@
         }
 
         .tip-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(49, 154, 255, 0.22);
             padding: 18px;
             transition: border-color 0.2s;
+            border-radius: 18px;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.7),
+                0 14px 28px rgba(49, 154, 255, 0.08);
         }
 
         .tip-card:hover {
-            border-color: var(--accent4);
+            border-color: rgba(0, 132, 255, 0.45);
         }
 
         .tip-card h4 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Fustat', sans-serif;
             font-size: 12px;
             font-weight: 700;
-            color: var(--accent4);
+            color: #0672d8;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -708,7 +1235,7 @@
             content: '›';
             position: absolute;
             left: 0;
-            color: var(--accent4);
+            color: #0672d8;
         }
 
         .tip-card li strong {
@@ -717,13 +1244,18 @@
 
         /* ─── CTA Banner ─── */
         .cta-banner {
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(49, 154, 255, 0.22);
             padding: 32px;
             margin-bottom: 48px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-radius: 20px;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.7),
+                0 16px 30px rgba(49, 154, 255, 0.1);
         }
 
         .cta-banner::before {
@@ -733,11 +1265,11 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--accent3), var(--accent), var(--accent4));
+            background: linear-gradient(90deg, #60b1ff, #0084ff, #319aff);
         }
 
         .cta-banner h2 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Fustat', sans-serif;
             font-size: clamp(18px, 3vw, 28px);
             font-weight: 800;
             margin-bottom: 12px;
@@ -787,6 +1319,11 @@
 
         pre {
             white-space: pre-wrap;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         }
 
         /* ─── Scrollbar ─── */
@@ -810,95 +1347,157 @@
 </head>
 
 <body>
-    <div class="container">
-
-        <!-- Nav -->
-        <nav class="nav">
-            <div class="nav-logo">awesome-dev-agents</div>
-            <ul class="nav-links">
-                <li><a href="#agents">Agents</a></li>
-                <li><a href="#combos">Combos</a></li>
-                <li><a href="#tips">Tips</a></li>
-                <li><a href="https://github.com/YOUR_USERNAME/awesome-dev-agents" class="nav-cta" target="_blank">GitHub
-                        ↗</a></li>
-            </ul>
-        </nav>
-
-        <!-- Hero -->
-        <div class="hero">
-            <div class="hero-eyebrow">GitHub Copilot · Custom Agents · Open Source</div>
-            <h1>Your Dev Agent<br><span class="accent-cyan">Toolkit</span></h1>
-            <p class="hero-subtitle">9 custom agents covering every corner of the software development lifecycle —
-                AI/ML, full-stack, open source, UI design, security, and more. Drop these <code>.agent.md</code>
-                files and ship better software, faster.</p>
-            <div class="hero-actions">
-                <a href="https://github.com/YOUR_USERNAME/awesome-dev-agents" class="btn btn-primary"
-                    id="hero-github-btn">↓ Get Agents on GitHub</a>
-                <a href="#agents" class="btn btn-outline">Browse Agents →</a>
+    <section class="liquid-hero" id="home">
+        <div class="liquid-hero-shell">
+            <div class="glass-nav-wrap">
+                <nav class="glass-nav" aria-label="Primary">
+                    <a href="#home" class="glass-logo">copilot-agents</a>
+                    <ul class="glass-nav-links">
+                        <li><a href="#quickstart">Quick Start</a></li>
+                        <li><a href="#agents">Agents</a></li>
+                        <li><a href="#combos">Combos</a></li>
+                        <li><a href="#tips">Tips</a></li>
+                    </ul>
+                    <a href="https://github.com/Tanish-Dev/copilot-agents" class="glass-signup" target="_blank" rel="noopener noreferrer">GitHub
+                        <span class="glass-signup-icon" aria-hidden="true">
+                            <svg viewBox="0 0 12 12">
+                                <path d="M2 10L10 2"></path>
+                                <path d="M5.2 2H10V6.8"></path>
+                            </svg>
+                        </span>
+                    </a>
+                </nav>
             </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="stat-num">9<span>+</span></div>
-                    <div class="stat-label">Custom Agents</div>
+
+            <div class="liquid-main">
+                <div class="liquid-copy">
+                    <div class="rating-pill">
+                        <span class="rating-text">9 battle-tested agents for the full software lifecycle</span>
+                    </div>
+                    <h1 class="liquid-title">Ship better software faster</h1>
+                    <p class="liquid-subheadline">Drop in ready-made <code>.agent.md</code> files for AI engineering,
+                        full-stack delivery, security review, documentation, and open source workflows. MIT licensed,
+                        zero config, and built for real project velocity.</p>
+                    <div class="hero-install-wrap">
+                        <div class="hero-install-box" data-label="instant setup">
+                            <pre>curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project .</pre>
+                            <button class="hero-install-copy" onclick="copySetupCommand(this, 'curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project .')">Copy install command</button>
+                        </div>
+                        <p class="hero-install-note">Paste this in your project root to copy all agent files automatically into <code>.github/agents/</code>.</p>
+                    </div>
                 </div>
-                <div class="stat">
-                    <div class="stat-num" style="color:var(--accent3)">8</div>
-                    <div class="stat-label">Workflow Combos</div>
+
+                <div class="liquid-orb-stage" aria-hidden="true">
+                    <video class="liquid-orb-video" autoplay loop muted playsinline>
+                        <source src="https://future.co/images/homepage/glassy-orb/orb-purple.webm" type="video/webm">
+                    </video>
                 </div>
-                <div class="stat">
-                    <div class="stat-num" style="color:var(--accent4)">0</div>
-                    <div class="stat-label">Config Needed</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-num" style="color:var(--accent2)">MIT</div>
-                    <div class="stat-label">License</div>
+            </div>
+
+            <div class="trusted-strip">
+                <p class="trusted-label">Built for teams shipping with GitHub Copilot</p>
+                <div class="trusted-logos" aria-label="Trusted companies">
+                    <div class="trusted-logo">
+                        <svg viewBox="0 0 132 28" role="img" aria-label="Nexora">
+                            <text x="0" y="20" fill="#64748b" font-family="Inter, sans-serif" font-size="18"
+                                font-weight="700" letter-spacing="0.04em">NEXORA</text>
+                        </svg>
+                    </div>
+                    <div class="trusted-logo">
+                        <svg viewBox="0 0 110 28" role="img" aria-label="Linearq">
+                            <text x="0" y="20" fill="#64748b" font-family="Inter, sans-serif" font-size="18"
+                                font-weight="700" letter-spacing="0.04em">LINEARQ</text>
+                        </svg>
+                    </div>
+                    <div class="trusted-logo">
+                        <svg viewBox="0 0 118 28" role="img" aria-label="Cloudzy">
+                            <text x="0" y="20" fill="#64748b" font-family="Inter, sans-serif" font-size="18"
+                                font-weight="700" letter-spacing="0.04em">CLOUDZY</text>
+                        </svg>
+                    </div>
+                    <div class="trusted-logo">
+                        <svg viewBox="0 0 126 28" role="img" aria-label="Aetherix">
+                            <text x="0" y="20" fill="#64748b" font-family="Inter, sans-serif" font-size="18"
+                                font-weight="700" letter-spacing="0.04em">AETHERIX</text>
+                        </svg>
+                    </div>
+                    <div class="trusted-logo">
+                        <svg viewBox="0 0 130 28" role="img" aria-label="Stackly">
+                            <text x="0" y="20" fill="#64748b" font-family="Inter, sans-serif" font-size="18"
+                                font-weight="700" letter-spacing="0.04em">STACKLY</text>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <div class="container">
 
         <!-- Quick Start -->
         <div id="quickstart">
             <div class="section-title">Quick Start</div>
+            <p class="setup-intro">You have two easy ways to install agents. Both options end in the same result: all agent files available inside <code>.github/agents/</code> for Copilot.</p>
             <div class="setup-grid">
-                <div class="setup-card">
-                    <h3>⎈ VS Code Setup</h3>
+                <div class="setup-card install-option">
+                    <h3>⚡ Option A: One Command (Fastest)</h3>
+                    <p>Run this in your project root and it creates <code>.github/agents/</code> and copies all agent files automatically.</p>
+                    <div class="command-box" data-label="terminal">
+                        <pre>curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project .</pre>
+                        <button class="copy-command-btn" onclick="copySetupCommand(this, 'curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project .')">Copy command</button>
+                    </div>
                     <div class="step">
                         <div class="step-num">1</div>
-                        <p>Open Copilot Chat → click the <code>agents dropdown</code> → <strong>Configure Custom
-                                Agents…</strong></p>
+                        <p>Paste and run the command in your repo root.</p>
                     </div>
                     <div class="step">
                         <div class="step-num">2</div>
-                        <p>Choose <strong>Workspace</strong> (repo-specific) or <strong>User Profile</strong> (global
-                            across all projects)</p>
+                        <p>Verify you now have <code>.github/agents/*.agent.md</code>.</p>
                     </div>
                     <div class="step">
                         <div class="step-num">3</div>
-                        <p>Name the file → VS Code creates <code>.github/agents/agent-name.agent.md</code></p>
-                    </div>
-                    <div class="step">
-                        <div class="step-num">4</div>
-                        <p>Paste the agent config below → save → agent appears in dropdown instantly</p>
+                        <p>Commit and push the agent files to your default branch.</p>
                     </div>
                 </div>
-                <div class="setup-card">
-                    <h3>⚡ CLI & GitHub.com</h3>
+
+                <div class="setup-card install-option">
+                    <h3>📁 Option B: Manual Folder + File Copy</h3>
+                    <p>Use this path if you prefer explicit control over where files are copied.</p>
+                    <div class="command-box" data-label="manual">
+                        <pre>mkdir -p .github/agents
+cp /path/to/copilot-agents/agents/*.agent.md .github/agents/</pre>
+                        <button class="copy-command-btn" onclick="copySetupCommand(this, 'mkdir -p .github/agents\ncp /path/to/copilot-agents/agents/*.agent.md .github/agents/')">Copy manual steps</button>
+                    </div>
                     <div class="step">
                         <div class="step-num">1</div>
-                        <p>Copy files from <code>agents/</code> into <code>.github/agents/</code> in your project</p>
+                        <p>Create the folder exactly as <code>.github/agents</code>.</p>
                     </div>
                     <div class="step">
                         <div class="step-num">2</div>
-                        <p>Commit and push to your default branch</p>
+                        <p>Copy all <code>*.agent.md</code> files from this repo’s <code>agents/</code> folder.</p>
                     </div>
                     <div class="step">
                         <div class="step-num">3</div>
-                        <p>CLI: <code>copilot --agent=ai-engineer --prompt "your task"</code></p>
+                        <p>Commit and push <code>.github/agents/*.agent.md</code> to your default branch.</p>
                     </div>
-                    <div class="step">
-                        <div class="step-num">4</div>
-                        <p>GitHub.com: go to <code>github.com/copilot/agents</code> → pick repo → select agent</p>
-                    </div>
+                </div>
+            </div>
+
+            <div class="setup-note"><strong>After either option:</strong> open Copilot Chat or Copilot CLI, choose any of these agents, and run with your preferred supported Copilot model.</div>
+
+            <div class="setup-card vscode-note">
+                <h3>⎈ Optional: VS Code UI Setup</h3>
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <p>Open Copilot Chat → agent dropdown → <strong>Configure Custom Agents…</strong></p>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <p>Choose <strong>Workspace</strong>, then create files inside <code>.github/agents/</code>.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <p>Paste agent content and save. Agents appear in the picker immediately.</p>
                 </div>
             </div>
 
@@ -935,7 +1534,7 @@
 
         <!-- Agents -->
         <div id="agents">
-            <div class="section-title">The 8 Agents</div>
+            <div class="section-title">The 9 Agents</div>
             <div class="agents-grid">
 
                 <!-- 1. AI Engineer -->
@@ -943,7 +1542,7 @@
                     <div class="agent-header">
                         <div class="agent-icon">🤖</div>
                         <div class="agent-meta">
-                            <div class="agent-name" style="color:#00e5cc">AI Engineer</div>
+                            <div class="agent-name" style="color:var(--accent)">AI Engineer</div>
                             <div class="agent-desc">LangChain · FastAPI · PyTorch · LangGraph · RAG · OCR · YOLO</div>
                             <div class="agent-tags">
                                 <span class="badge cyan">Python</span>
@@ -990,7 +1589,7 @@ logging, and error handling to every pipeline.</span></pre>
                     <div class="agent-header">
                         <div class="agent-icon">⚡</div>
                         <div class="agent-meta">
-                            <div class="agent-name" style="color:#7c6af7">Full Stack Dev</div>
+                            <div class="agent-name" style="color:var(--accent3)">Full Stack Dev</div>
                             <div class="agent-desc">React · Node.js · FastAPI · REST APIs · Docker · SQL · TypeScript
                             </div>
                             <div class="agent-tags">
@@ -1037,7 +1636,7 @@ Use env vars for all secrets — never hardcode.</span></pre>
                     <div class="agent-header">
                         <div class="agent-icon">🧠</div>
                         <div class="agent-meta">
-                            <div class="agent-name" style="color:#f0c040">ML Researcher</div>
+                            <div class="agent-name" style="color:var(--accent2)">ML Researcher</div>
                             <div class="agent-desc">scikit-learn · XGBoost · PyTorch · Feature Engineering · Evaluation
                             </div>
                             <div class="agent-tags">
@@ -1085,7 +1684,7 @@ include augmentation, dropout, batch norm, LR scheduling.</span></pre>
                     <div class="agent-header">
                         <div class="agent-icon">🔍</div>
                         <div class="agent-meta">
-                            <div class="agent-name" style="color:#ff5f40">Code Reviewer</div>
+                            <div class="agent-name" style="color:var(--accent2)">Code Reviewer</div>
                             <div class="agent-desc">Correctness · Security · Performance · Readability · Clean Code
                             </div>
                             <div class="agent-tags">
@@ -1131,7 +1730,7 @@ readability, and language-specific gotchas. Output format:
                     <div class="agent-header">
                         <div class="agent-icon">🏗️</div>
                         <div class="agent-meta">
-                            <div class="agent-name" style="color:#00e5cc">System Designer</div>
+                            <div class="agent-name" style="color:var(--accent)">System Designer</div>
                             <div class="agent-desc">Architecture · Mermaid Diagrams · Microservices · API Design ·
                                 Scalability</div>
                             <div class="agent-tags">
@@ -1177,7 +1776,7 @@ scalability/trade-off notes for every architecture request.</span></pre>
                     <div class="agent-header">
                         <div class="agent-icon">📝</div>
                         <div class="agent-meta">
-                            <div class="agent-name" style="color:#7c6af7">Doc Writer</div>
+                            <div class="agent-name" style="color:var(--accent3)">Doc Writer</div>
                             <div class="agent-desc">README · Proposals · Research Papers · Docstrings · Changelogs ·
                                 ADRs</div>
                             <div class="agent-tags">
@@ -1223,7 +1822,7 @@ Docstrings: Google style with Args, Returns, Raises, Example.</span></pre>
                     <div class="agent-header">
                         <div class="agent-icon">🛡️</div>
                         <div class="agent-meta">
-                            <div class="agent-name" style="color:#ff5f40">Security Auditor</div>
+                            <div class="agent-name" style="color:var(--accent2)">Security Auditor</div>
                             <div class="agent-desc">OWASP Top 10 · Secrets · Injection · Auth Flaws · CVEs · LLM
                                 Security</div>
                             <div class="agent-tags">
@@ -1269,7 +1868,7 @@ injection in LLM pipelines. Output: severity-graded report.</span></pre>
                     <div class="agent-header">
                         <div class="agent-icon">🌍</div>
                         <div class="agent-meta">
-                            <div class="agent-name" style="color:#f0c040">Open Source Contributor</div>
+                            <div class="agent-name" style="color:var(--accent2)">Open Source Contributor</div>
                             <div class="agent-desc">Finding Projects · Codebase Navigation · PRs · Proposals · Beginner
                                 Guide</div>
                             <div class="agent-tags">
@@ -1316,7 +1915,7 @@ Beginners: start with goodfirstissue.dev + languages you know.</span></pre>
                     <div class="agent-header">
                         <div class="agent-icon">🎨</div>
                         <div class="agent-meta">
-                            <div class="agent-name" style="color:#7c6af7">UI Designer</div>
+                            <div class="agent-name" style="color:var(--accent3)">UI Designer</div>
                             <div class="agent-desc">Screenshot → Design Language · CSS Tokens · Non-AI-Looking Frontends
                             </div>
                             <div class="agent-tags">
@@ -1517,19 +2116,19 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
             <h2>Start shipping with better agents</h2>
             <p>Fork the repo, drop the agent files into your project, and see the difference in your first session.</p>
             <div class="cta-actions">
-                <a href="https://github.com/YOUR_USERNAME/awesome-dev-agents" class="btn btn-primary"
+                <a href="https://github.com/Tanish-Dev/copilot-agents" class="btn btn-primary"
                     id="cta-github-btn">Fork on GitHub →</a>
-                <a href="https://github.com/YOUR_USERNAME/awesome-dev-agents/blob/main/CONTRIBUTING.md"
+                <a href="https://github.com/Tanish-Dev/copilot-agents/blob/main/CONTRIBUTING.md"
                     class="btn btn-outline" id="cta-contribute-btn">Contribute an Agent</a>
             </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <div>awesome-dev-agents · <span>MIT License</span></div>
+            <div>copilot-agents · <span>MIT License</span></div>
             <div>
-                <a href="https://github.com/YOUR_USERNAME/awesome-dev-agents">GitHub</a> ·
-                <a href="https://github.com/YOUR_USERNAME/awesome-dev-agents/blob/main/CONTRIBUTING.md">Contributing</a>
+                <a href="https://github.com/Tanish-Dev/copilot-agents">GitHub</a> ·
+                <a href="https://github.com/Tanish-Dev/copilot-agents/blob/main/CONTRIBUTING.md">Contributing</a>
                 ·
                 <a
                     href="https://docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent-in-your-ide">Copilot
@@ -1540,18 +2139,48 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
     </div>
 
     <script>
-        function copyAgent(btn, path) {
-            navigator.clipboard.writeText(path).then(() => {
-                const original = btn.textContent;
-                btn.textContent = 'copied!';
-                btn.style.color = 'var(--accent)';
-                btn.style.borderColor = 'var(--accent)';
-                setTimeout(() => {
-                    btn.textContent = original;
-                    btn.style.color = '';
-                    btn.style.borderColor = '';
-                }, 1500);
+        function copyText(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(text);
+            }
+
+            return new Promise((resolve, reject) => {
+                const area = document.createElement('textarea');
+                area.value = text;
+                area.style.position = 'fixed';
+                area.style.opacity = '0';
+                document.body.appendChild(area);
+                area.focus();
+                area.select();
+                try {
+                    document.execCommand('copy');
+                    document.body.removeChild(area);
+                    resolve();
+                } catch (err) {
+                    document.body.removeChild(area);
+                    reject(err);
+                }
             });
+        }
+
+        function flashCopyState(btn, copiedText) {
+            const original = btn.textContent;
+            btn.textContent = copiedText;
+            btn.style.color = '#ffffff';
+            btn.style.borderColor = '#93c5fd';
+            setTimeout(() => {
+                btn.textContent = original;
+                btn.style.color = '';
+                btn.style.borderColor = '';
+            }, 1500);
+        }
+
+        function copyAgent(btn, path) {
+            copyText(path).then(() => flashCopyState(btn, 'copied!'));
+        }
+
+        function copySetupCommand(btn, command) {
+            copyText(command).then(() => flashCopyState(btn, 'command copied!'));
         }
 
         // Smooth scroll for nav links

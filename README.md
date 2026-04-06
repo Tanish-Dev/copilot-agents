@@ -3,11 +3,11 @@
 <div align="center">
 
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
-![Agents](https://img.shields.io/badge/agents-8-00e5cc?style=flat-square)
+![Agents](https://img.shields.io/badge/agents-9-00e5cc?style=flat-square)
 ![GitHub Copilot](https://img.shields.io/badge/GitHub%20Copilot-Custom%20Agents-7c6af7?style=flat-square)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)
 
-**8 battle-tested custom agents for the complete software development lifecycle.**  
+**9 battle-tested custom agents for the complete software development lifecycle.**  
 Drop these `.agent.md` files into your repo and ship better software, faster.
 
 [**→ View Interactive Showcase**](https://tanish.dev/copilot-agents) · [**Browse Agents**](#agents) · [**Quick Start**](#quick-start) · [**Contribute**](CONTRIBUTING.md)
@@ -55,7 +55,23 @@ Each agent:
 3. Paste the agent config from the relevant file in `/agents/`
 4. Save → the agent appears in the dropdown immediately
 
-### Option B: Manual (Any Editor)
+### Option B: One Command (Recommended)
+
+This creates `.github/agents/` in your repo and installs all agents in one go:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project .
+```
+
+You can also run locally after cloning this repo:
+
+```bash
+./install-global.sh --project /path/to/your-project
+```
+
+After that, agents can be used in GitHub Copilot Chat (with any supported Copilot model) and Copilot CLI.
+
+### Option C: Manual (Any Editor)
 
 1. Copy the `.agent.md` files you want into `.github/agents/` in your repo:
 ```bash
@@ -65,7 +81,7 @@ cp agents/*.agent.md .github/agents/
 2. Commit and push to your default branch
 3. Done — agents are now available in Copilot Chat and CLI
 
-### Option C: GitHub CLI
+### Option D: GitHub CLI
 
 ```bash
 # Clone this repo and copy all agents to your project
@@ -74,7 +90,7 @@ mkdir -p your-project/.github/agents
 cp awesome-dev-agents/agents/*.agent.md your-project/.github/agents/
 ```
 
-### Option D: GitHub Copilot CLI
+### Option E: GitHub Copilot CLI
 
 ```bash
 # Use a specific agent from CLI
@@ -87,7 +103,7 @@ copilot --agent=code-reviewer --prompt "review all files in /src"
 ## Repo Structure
 
 ```
-awesome-dev-agents/
+copilot-agents/
 ├── agents/                         # ← The actual agent files (use these!)
 │   ├── ai-engineer.agent.md
 │   ├── fullstack-dev.agent.md

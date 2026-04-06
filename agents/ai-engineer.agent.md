@@ -6,7 +6,7 @@ description: |
   Use me for any AI/ML feature, model pipeline, or inference endpoint.
   Trigger keywords: RAG, LLM, pipeline, inference, LangChain, agent, chatbot, embedding, vector
 tools: ['read', 'edit', 'search', 'create', 'run_command']
-model: claude-sonnet-4-5
+model: claude-sonnet-4-6
 ---
 
 ## Role
