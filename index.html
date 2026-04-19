@@ -7,9 +7,7 @@
     <title>Awesome Dev Agents — GitHub Copilot Custom Agents for Software Development</title>
     <meta name="description"
         content="9 battle-tested custom agents for the complete software development lifecycle. Drop these .agent.md files into your project and ship better software, faster.">
-    <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@700;800&family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #f5f9ff;
@@ -1344,89 +1342,214 @@
             background: var(--muted);
         }
     </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-    <section class="liquid-hero" id="home">
-        <div class="liquid-hero-shell">
-            <div class="glass-nav-wrap">
-                <nav class="glass-nav" aria-label="Primary">
-                    <a href="#home" class="glass-logo">copilot-agents</a>
-                    <ul class="glass-nav-links">
-                        <li><a href="#quickstart">Quick Start</a></li>
-                        <li><a href="#agents">Agents</a></li>
-                        <li><a href="#combos">Combos</a></li>
-                        <li><a href="#tips">Tips</a></li>
-                    </ul>
-                    <a href="https://github.com/Tanish-Dev/copilot-agents" class="glass-signup" target="_blank" rel="noopener noreferrer">GitHub
-                        <span class="glass-signup-icon" aria-hidden="true">
-                            <svg viewBox="0 0 12 12">
-                                <path d="M2 10L10 2"></path>
-                                <path d="M5.2 2H10V6.8"></path>
-                            </svg>
-                        </span>
-                    </a>
-                </nav>
+    <section class="copilot-hero" id="home">
+        <nav class="copilot-nav copilot-max animate-fade-in-up" style="opacity: 0; animation-delay: 0.1s;" aria-label="Primary">
+            <a href="#home" class="copilot-brand-wrap">
+                <span class="copilot-brand-star icon-star-filled" aria-hidden="true">
+                    <i data-lucide="star"></i>
+                </span>
+                <span class="copilot-brand-text">Copilot Agents</span>
+            </a>
+
+            <div class="copilot-nav-center" aria-label="Main links">
+                <button class="copilot-nav-item" type="button">
+                    <span>Agents</span>
+                    <i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <button class="copilot-nav-item" type="button">
+                    <span>Quick Start</span>
+                    <i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <button class="copilot-nav-item" type="button">Workflows</button>
+                <button class="copilot-nav-item" type="button">Contribute</button>
             </div>
 
-            <div class="liquid-main">
-                <div class="liquid-copy">
-                    <div class="rating-pill">
-                        <span class="rating-text">9 battle-tested agents for the full software lifecycle</span>
-                    </div>
-                    <h1 class="liquid-title">Ship better software faster</h1>
-                    <p class="liquid-subheadline">Drop in ready-made <code>.agent.md</code> files for AI engineering,
-                        full-stack delivery, security review, documentation, and open source workflows. MIT licensed,
-                        zero config, and built for real project velocity.</p>
-                    <div class="hero-install-wrap">
-                        <div class="hero-install-box" data-label="instant setup">
-                            <pre>curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project .</pre>
-                            <button class="hero-install-copy" onclick="copySetupCommand(this, 'curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project .')">Copy install command</button>
+            <button class="copilot-menu-toggle" type="button" aria-expanded="false" aria-controls="copilot-mobile-menu" aria-label="Toggle navigation menu">
+                <span class="copilot-menu-toggle-line" aria-hidden="true"></span>
+                <span class="copilot-menu-toggle-line" aria-hidden="true"></span>
+                <span class="copilot-menu-toggle-line" aria-hidden="true"></span>
+            </button>
+
+            <div class="copilot-nav-actions" id="copilot-mobile-menu">
+                <a class="copilot-login-link" href="https://github.com/Tanish-Dev/copilot-agents" target="_blank" rel="noopener noreferrer">View GitHub</a>
+                <a class="copilot-start-button" href="https://github.com/Tanish-Dev/copilot-agents" target="_blank" rel="noopener noreferrer">Install Agents</a>
+            </div>
+        </nav>
+
+        <div class="copilot-hero-content copilot-max">
+            <div class="copilot-reviews animate-fade-in-up" style="opacity: 0; animation-delay: 0.2s;">
+                <span class="copilot-review-icon icon-star-filled" aria-hidden="true">
+                    <i data-lucide="star"></i>
+                </span>
+                <span class="copilot-review-text">9 battle-tested roles for the full software lifecycle</span>
+            </div>
+
+            <h1 class="copilot-heading animate-fade-in-up" style="opacity: 0; animation-delay: 0.3s;">
+                Purpose-built Copilot agents<br>
+                <span class="copilot-heading-gradient">for real software teams.</span>
+            </h1>
+
+            <p class="copilot-subheading animate-fade-in-up" style="opacity: 0; animation-delay: 0.4s;">
+                Drop these <code>.agent.md</code> files into your repo and get focused agent roles for architecture, coding, reviews, documentation, and security without rewriting prompts every session.
+            </p>
+
+            <a class="copilot-hero-cta animate-fade-in-up" style="opacity: 0; animation-delay: 0.5s;" href="https://github.com/Tanish-Dev/copilot-agents" target="_blank" rel="noopener noreferrer">Browse 9 Agents</a>
+
+            <div class="copilot-tab-shell animate-fade-in-up" style="opacity: 0; animation-delay: 0.6s;">
+                <div class="copilot-tabs-mobile" role="tablist" aria-label="Workflow tabs">
+                    <button class="copilot-tab-button" type="button" data-tab="analyse" role="tab" aria-selected="true">
+                        <i data-lucide="bar-chart-3" aria-hidden="true"></i>
+                        <span>Choose</span>
+                    </button>
+                    <button class="copilot-tab-button" type="button" data-tab="train" role="tab" aria-selected="false">
+                        <i data-lucide="book-open" aria-hidden="true"></i>
+                        <span>Install</span>
+                    </button>
+                    <button class="copilot-tab-button" type="button" data-tab="testing" role="tab" aria-selected="false">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>Prompt</span>
+                    </button>
+                    <button class="copilot-tab-button" type="button" data-tab="deploy" role="tab" aria-selected="false">
+                        <i data-lucide="rocket" aria-hidden="true"></i>
+                        <span>Ship</span>
+                    </button>
+                </div>
+
+                <div class="copilot-tabs-desktop" role="tablist" aria-label="Workflow tabs desktop">
+                    <button class="copilot-tab-button" type="button" data-tab="analyse" role="tab" aria-selected="true">
+                        <i data-lucide="bar-chart-3" aria-hidden="true"></i>
+                        <span>Choose</span>
+                    </button>
+                    <span class="copilot-tab-divider" aria-hidden="true"></span>
+                    <button class="copilot-tab-button" type="button" data-tab="train" role="tab" aria-selected="false">
+                        <i data-lucide="book-open" aria-hidden="true"></i>
+                        <span>Install</span>
+                    </button>
+                    <span class="copilot-tab-divider" aria-hidden="true"></span>
+                    <button class="copilot-tab-button" type="button" data-tab="testing" role="tab" aria-selected="false">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>Prompt</span>
+                    </button>
+                    <span class="copilot-tab-divider" aria-hidden="true"></span>
+                    <button class="copilot-tab-button" type="button" data-tab="deploy" role="tab" aria-selected="false">
+                        <i data-lucide="rocket" aria-hidden="true"></i>
+                        <span>Ship</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="copilot-video-stage animate-fade-in-up" style="opacity: 0; animation-delay: 0.7s;">
+                <img class="copilot-video" src="public/gradient3.png" alt="Animated demo of Copilot Agents in action" aria-label="Animated demo of Copilot Agents in action">
+                <div class="copilot-video-overlay is-active animate-fade-in-overlay" data-overlay="analyse">
+                    <div class="copilot-overlay-dialog animate-slide-up-overlay">
+                        <h3>Pick Your Agent Mix</h3>
+                        <p class="copilot-overlay-caption">Setup step 1 of 4 · Choose</p>
+                        <div class="copilot-progress-track">
+                            <span class="copilot-progress-fill copilot-progress-blue copilot-progress-step-1"></span>
                         </div>
-                        <p class="hero-install-note">Paste this in your project root to copy all agent files automatically into <code>.github/agents/</code>.</p>
+                        <ul class="copilot-step-pill-list" aria-label="Workflow progress">
+                            <li class="copilot-step-pill is-current">1 Choose</li>
+                            <li class="copilot-step-pill">2 Install</li>
+                            <li class="copilot-step-pill">3 Prompt</li>
+                            <li class="copilot-step-pill">4 Ship</li>
+                        </ul>
+                        <ul class="copilot-step-list">
+                            <li class="is-current"><span>1</span>Choose the roles you need</li>
+                            <li><span>2</span>Copy files into .github/agents/</li>
+                            <li><span>3</span>Commit to your default branch</li>
+                            <li><span>4</span>Invoke agents in Copilot Chat</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="liquid-orb-stage" aria-hidden="true">
-                    <video class="liquid-orb-video" autoplay loop muted playsinline>
-                        <source src="https://future.co/images/homepage/glassy-orb/orb-purple.webm" type="video/webm">
-                    </video>
+                <div class="copilot-video-overlay animate-fade-in-overlay" data-overlay="train">
+                    <div class="copilot-overlay-dialog animate-slide-up-overlay">
+                        <h3>Install in Under a Minute</h3>
+                        <p class="copilot-overlay-caption">Setup step 2 of 4 · Install</p>
+                        <div class="copilot-progress-track">
+                            <span class="copilot-progress-fill copilot-progress-orange copilot-progress-step-2"></span>
+                        </div>
+                        <ul class="copilot-step-pill-list" aria-label="Workflow progress">
+                            <li class="copilot-step-pill is-complete">1 Choose</li>
+                            <li class="copilot-step-pill is-current">2 Install</li>
+                            <li class="copilot-step-pill">3 Prompt</li>
+                            <li class="copilot-step-pill">4 Ship</li>
+                        </ul>
+                        <div class="copilot-metric-grid">
+                            <div><strong>9</strong><span>Agent files</span></div>
+                            <div><strong>.github/agents</strong><span>Folder target</span></div>
+                            <div><strong>CLI</strong><span>One command install</span></div>
+                            <div><strong>VS Code</strong><span>Workspace mode ready</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="copilot-video-overlay animate-fade-in-overlay" data-overlay="testing">
+                    <div class="copilot-overlay-dialog animate-slide-up-overlay">
+                        <h3>Prompt with Purpose</h3>
+                        <p class="copilot-overlay-caption">Setup step 3 of 4 · Prompt</p>
+                        <div class="copilot-progress-track">
+                            <span class="copilot-progress-fill copilot-progress-purple copilot-progress-step-3"></span>
+                        </div>
+                        <ul class="copilot-step-pill-list" aria-label="Workflow progress">
+                            <li class="copilot-step-pill is-complete">1 Choose</li>
+                            <li class="copilot-step-pill is-complete">2 Install</li>
+                            <li class="copilot-step-pill is-current">3 Prompt</li>
+                            <li class="copilot-step-pill">4 Ship</li>
+                        </ul>
+                        <div class="copilot-result-pill">Ready • 9 specialized agent roles</div>
+                        <div class="copilot-metric-grid">
+                            <div><strong>AI Engineer</strong><span>LLM + RAG workflows</span></div>
+                            <div><strong>Full Stack Dev</strong><span>UI + API features</span></div>
+                            <div><strong>Code Reviewer</strong><span>Quality and performance</span></div>
+                            <div><strong>Security Auditor</strong><span>OWASP-focused checks</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="copilot-video-overlay animate-fade-in-overlay" data-overlay="deploy">
+                    <div class="copilot-overlay-dialog animate-slide-up-overlay">
+                        <h3>Ship with Agent Workflows</h3>
+                        <p class="copilot-overlay-caption">Setup step 4 of 4 · Ship</p>
+                        <div class="copilot-progress-track">
+                            <span class="copilot-progress-fill copilot-progress-green copilot-progress-step-4"></span>
+                        </div>
+                        <ul class="copilot-step-pill-list" aria-label="Workflow progress">
+                            <li class="copilot-step-pill is-complete">1 Choose</li>
+                            <li class="copilot-step-pill is-complete">2 Install</li>
+                            <li class="copilot-step-pill is-complete">3 Prompt</li>
+                            <li class="copilot-step-pill is-current">4 Ship</li>
+                        </ul>
+                        <ul class="copilot-check-list">
+                            <li>System Designer drafts architecture</li>
+                            <li>Full Stack Dev implements features</li>
+                            <li>Code Reviewer hardens code quality</li>
+                            <li>Security Auditor runs release checks</li>
+                        </ul>
+                        <button class="copilot-deploy-button" type="button">Run an Agent Workflow</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="trusted-strip">
-                <p class="trusted-label">Built for teams shipping with GitHub Copilot</p>
-                <div class="trusted-logos" aria-label="Trusted companies">
-                    <div class="trusted-logo">
-                        <svg viewBox="0 0 132 28" role="img" aria-label="Nexora">
-                            <text x="0" y="20" fill="#64748b" font-family="Inter, sans-serif" font-size="18"
-                                font-weight="700" letter-spacing="0.04em">NEXORA</text>
-                        </svg>
-                    </div>
-                    <div class="trusted-logo">
-                        <svg viewBox="0 0 110 28" role="img" aria-label="Linearq">
-                            <text x="0" y="20" fill="#64748b" font-family="Inter, sans-serif" font-size="18"
-                                font-weight="700" letter-spacing="0.04em">LINEARQ</text>
-                        </svg>
-                    </div>
-                    <div class="trusted-logo">
-                        <svg viewBox="0 0 118 28" role="img" aria-label="Cloudzy">
-                            <text x="0" y="20" fill="#64748b" font-family="Inter, sans-serif" font-size="18"
-                                font-weight="700" letter-spacing="0.04em">CLOUDZY</text>
-                        </svg>
-                    </div>
-                    <div class="trusted-logo">
-                        <svg viewBox="0 0 126 28" role="img" aria-label="Aetherix">
-                            <text x="0" y="20" fill="#64748b" font-family="Inter, sans-serif" font-size="18"
-                                font-weight="700" letter-spacing="0.04em">AETHERIX</text>
-                        </svg>
-                    </div>
-                    <div class="trusted-logo">
-                        <svg viewBox="0 0 130 28" role="img" aria-label="Stackly">
-                            <text x="0" y="20" fill="#64748b" font-family="Inter, sans-serif" font-size="18"
-                                font-weight="700" letter-spacing="0.04em">STACKLY</text>
-                        </svg>
-                    </div>
+            <div class="copilot-logos animate-fade-in-up" style="opacity: 0; animation-delay: 0.8s;" aria-label="Company logos">
+                <div class="copilot-logo">GITHUB COPILOT</div>
+                <div class="copilot-logo copilot-logo-spotify"><span class="copilot-logo-dot"></span>VS CODE</div>
+                <div class="copilot-logo copilot-logo-nexera">
+                    <span class="copilot-dot-grid" aria-hidden="true"></span>
+                    <span>COPILOT CLI</span>
+                </div>
+                <div class="copilot-logo copilot-logo-m3">.GITHUB/AGENTS</div>
+                <div class="copilot-logo copilot-logo-laura">
+                    <span class="copilot-lc-badge">LC</span>
+                    <span>MARKDOWN-FIRST</span>
+                </div>
+                <div class="copilot-logo copilot-logo-vertex">
+                    <span class="copilot-vertex-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                    <span>WORKFLOW READY</span>
                 </div>
             </div>
         </div>
@@ -1440,7 +1563,10 @@
             <p class="setup-intro">You have two easy ways to install agents. Both options end in the same result: all agent files available inside <code>.github/agents/</code> for Copilot.</p>
             <div class="setup-grid">
                 <div class="setup-card install-option">
-                    <h3>⚡ Option A: One Command (Fastest)</h3>
+                    <h3>
+                        <span class="setup-title-icon" aria-hidden="true"><i data-lucide="zap"></i></span>
+                        <span>Option A: One Command (Fastest)</span>
+                    </h3>
                     <p>Run this in your project root and it creates <code>.github/agents/</code> and copies all agent files automatically.</p>
                     <div class="command-box" data-label="terminal">
                         <pre>curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project .</pre>
@@ -1461,7 +1587,10 @@
                 </div>
 
                 <div class="setup-card install-option">
-                    <h3>📁 Option B: Manual Folder + File Copy</h3>
+                    <h3>
+                        <span class="setup-title-icon" aria-hidden="true"><i data-lucide="folder-open"></i></span>
+                        <span>Option B: Manual Folder + File Copy</span>
+                    </h3>
                     <p>Use this path if you prefer explicit control over where files are copied.</p>
                     <div class="command-box" data-label="manual">
                         <pre>mkdir -p .github/agents
@@ -1483,10 +1612,16 @@ cp /path/to/copilot-agents/agents/*.agent.md .github/agents/</pre>
                 </div>
             </div>
 
-            <div class="setup-note"><strong>After either option:</strong> open Copilot Chat or Copilot CLI, choose any of these agents, and run with your preferred supported Copilot model.</div>
+            <div class="setup-note">
+                <span class="setup-note-icon" aria-hidden="true"><i data-lucide="sparkles"></i></span>
+                <p><strong>After either option:</strong> open Copilot Chat or Copilot CLI, choose any of these agents, and run with your preferred supported Copilot model.</p>
+            </div>
 
             <div class="setup-card vscode-note">
-                <h3>⎈ Optional: VS Code UI Setup</h3>
+                <h3>
+                    <span class="setup-title-icon" aria-hidden="true"><i data-lucide="settings"></i></span>
+                    <span>Optional: VS Code UI Setup</span>
+                </h3>
                 <div class="step">
                     <div class="step-num">1</div>
                     <p>Open Copilot Chat → agent dropdown → <strong>Configure Custom Agents…</strong></p>
@@ -1540,7 +1675,7 @@ cp /path/to/copilot-agents/agents/*.agent.md .github/agents/</pre>
                 <!-- 1. AI Engineer -->
                 <div class="agent-card">
                     <div class="agent-header">
-                        <div class="agent-icon">🤖</div>
+                        <div class="agent-icon" aria-hidden="true"><i data-lucide="bot"></i></div>
                         <div class="agent-meta">
                             <div class="agent-name" style="color:var(--accent)">AI Engineer</div>
                             <div class="agent-desc">LangChain · FastAPI · PyTorch · LangGraph · RAG · OCR · YOLO</div>
@@ -1587,7 +1722,7 @@ logging, and error handling to every pipeline.</span></pre>
                 <!-- 2. Full Stack Dev -->
                 <div class="agent-card">
                     <div class="agent-header">
-                        <div class="agent-icon">⚡</div>
+                        <div class="agent-icon" aria-hidden="true"><i data-lucide="zap"></i></div>
                         <div class="agent-meta">
                             <div class="agent-name" style="color:var(--accent3)">Full Stack Dev</div>
                             <div class="agent-desc">React · Node.js · FastAPI · REST APIs · Docker · SQL · TypeScript
@@ -1634,7 +1769,7 @@ Use env vars for all secrets — never hardcode.</span></pre>
                 <!-- 3. ML Researcher -->
                 <div class="agent-card">
                     <div class="agent-header">
-                        <div class="agent-icon">🧠</div>
+                        <div class="agent-icon" aria-hidden="true"><i data-lucide="brain"></i></div>
                         <div class="agent-meta">
                             <div class="agent-name" style="color:var(--accent2)">ML Researcher</div>
                             <div class="agent-desc">scikit-learn · XGBoost · PyTorch · Feature Engineering · Evaluation
@@ -1682,7 +1817,7 @@ include augmentation, dropout, batch norm, LR scheduling.</span></pre>
                 <!-- 4. Code Reviewer -->
                 <div class="agent-card">
                     <div class="agent-header">
-                        <div class="agent-icon">🔍</div>
+                        <div class="agent-icon" aria-hidden="true"><i data-lucide="search"></i></div>
                         <div class="agent-meta">
                             <div class="agent-name" style="color:var(--accent2)">Code Reviewer</div>
                             <div class="agent-desc">Correctness · Security · Performance · Readability · Clean Code
@@ -1728,7 +1863,7 @@ readability, and language-specific gotchas. Output format:
                 <!-- 5. System Designer -->
                 <div class="agent-card">
                     <div class="agent-header">
-                        <div class="agent-icon">🏗️</div>
+                        <div class="agent-icon" aria-hidden="true"><i data-lucide="building-2"></i></div>
                         <div class="agent-meta">
                             <div class="agent-name" style="color:var(--accent)">System Designer</div>
                             <div class="agent-desc">Architecture · Mermaid Diagrams · Microservices · API Design ·
@@ -1774,7 +1909,7 @@ scalability/trade-off notes for every architecture request.</span></pre>
                 <!-- 6. Doc Writer -->
                 <div class="agent-card">
                     <div class="agent-header">
-                        <div class="agent-icon">📝</div>
+                        <div class="agent-icon" aria-hidden="true"><i data-lucide="file-pen"></i></div>
                         <div class="agent-meta">
                             <div class="agent-name" style="color:var(--accent3)">Doc Writer</div>
                             <div class="agent-desc">README · Proposals · Research Papers · Docstrings · Changelogs ·
@@ -1820,7 +1955,7 @@ Docstrings: Google style with Args, Returns, Raises, Example.</span></pre>
                 <!-- 7. Security Auditor -->
                 <div class="agent-card">
                     <div class="agent-header">
-                        <div class="agent-icon">🛡️</div>
+                        <div class="agent-icon" aria-hidden="true"><i data-lucide="shield-check"></i></div>
                         <div class="agent-meta">
                             <div class="agent-name" style="color:var(--accent2)">Security Auditor</div>
                             <div class="agent-desc">OWASP Top 10 · Secrets · Injection · Auth Flaws · CVEs · LLM
@@ -1866,7 +2001,7 @@ injection in LLM pipelines. Output: severity-graded report.</span></pre>
                 <!-- 8. Open Source Contributor -->
                 <div class="agent-card">
                     <div class="agent-header">
-                        <div class="agent-icon">🌍</div>
+                        <div class="agent-icon" aria-hidden="true"><i data-lucide="globe"></i></div>
                         <div class="agent-meta">
                             <div class="agent-name" style="color:var(--accent2)">Open Source Contributor</div>
                             <div class="agent-desc">Finding Projects · Codebase Navigation · PRs · Proposals · Beginner
@@ -1913,7 +2048,7 @@ Beginners: start with goodfirstissue.dev + languages you know.</span></pre>
                 <!-- 9. UI Designer -->
                 <div class="agent-card">
                     <div class="agent-header">
-                        <div class="agent-icon">🎨</div>
+                        <div class="agent-icon" aria-hidden="true"><i data-lucide="palette"></i></div>
                         <div class="agent-meta">
                             <div class="agent-name" style="color:var(--accent3)">UI Designer</div>
                             <div class="agent-desc">Screenshot → Design Language · CSS Tokens · Non-AI-Looking Frontends
@@ -1965,7 +2100,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
             <div class="section-title">Workflow Combos</div>
             <div class="combos-grid">
                 <div class="combo-card">
-                    <div class="combo-label">🆕 New Feature</div>
+                    <div class="combo-label"><span class="combo-label-icon" aria-hidden="true"><i data-lucide="sparkles"></i></span><span>New Feature</span></div>
                     <div class="combo-chain">
                         <span class="combo-agent">System Designer</span>
                         <span class="combo-arrow">→</span>
@@ -1975,7 +2110,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </div>
                 </div>
                 <div class="combo-card">
-                    <div class="combo-label">🤖 AI/ML Project</div>
+                    <div class="combo-label"><span class="combo-label-icon" aria-hidden="true"><i data-lucide="bot"></i></span><span>AI/ML Project</span></div>
                     <div class="combo-chain">
                         <span class="combo-agent">AI Engineer</span>
                         <span class="combo-arrow">→</span>
@@ -1987,7 +2122,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </div>
                 </div>
                 <div class="combo-card">
-                    <div class="combo-label">🌍 Open Source Contribution</div>
+                    <div class="combo-label"><span class="combo-label-icon" aria-hidden="true"><i data-lucide="git-pull-request"></i></span><span>Open Source Contribution</span></div>
                     <div class="combo-chain">
                         <span class="combo-agent">Open Source Contributor</span>
                         <span class="combo-arrow">→</span>
@@ -1997,7 +2132,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </div>
                 </div>
                 <div class="combo-card">
-                    <div class="combo-label">🛡️ Secure Deployment</div>
+                    <div class="combo-label"><span class="combo-label-icon" aria-hidden="true"><i data-lucide="shield-check"></i></span><span>Secure Deployment</span></div>
                     <div class="combo-chain">
                         <span class="combo-agent">Full Stack Dev</span>
                         <span class="combo-arrow">→</span>
@@ -2007,7 +2142,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </div>
                 </div>
                 <div class="combo-card">
-                    <div class="combo-label">🔬 Research Project</div>
+                    <div class="combo-label"><span class="combo-label-icon" aria-hidden="true"><i data-lucide="flask-conical"></i></span><span>Research Project</span></div>
                     <div class="combo-chain">
                         <span class="combo-agent">ML Researcher</span>
                         <span class="combo-arrow">→</span>
@@ -2017,7 +2152,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </div>
                 </div>
                 <div class="combo-card">
-                    <div class="combo-label">📋 Tech Debt Cleanup</div>
+                    <div class="combo-label"><span class="combo-label-icon" aria-hidden="true"><i data-lucide="wrench"></i></span><span>Tech Debt Cleanup</span></div>
                     <div class="combo-chain">
                         <span class="combo-agent">Code Reviewer</span>
                         <span class="combo-arrow">→</span>
@@ -2027,7 +2162,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </div>
                 </div>
                 <div class="combo-card">
-                    <div class="combo-label">🎨 Frontend Redesign</div>
+                    <div class="combo-label"><span class="combo-label-icon" aria-hidden="true"><i data-lucide="palette"></i></span><span>Frontend Redesign</span></div>
                     <div class="combo-chain">
                         <span class="combo-agent">UI Designer</span>
                         <span class="combo-arrow">→</span>
@@ -2037,7 +2172,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </div>
                 </div>
                 <div class="combo-card">
-                    <div class="combo-label">🎓 First OSS Contribution</div>
+                    <div class="combo-label"><span class="combo-label-icon" aria-hidden="true"><i data-lucide="graduation-cap"></i></span><span>First OSS Contribution</span></div>
                     <div class="combo-chain">
                         <span class="combo-agent">Open Source Contributor</span>
                         <span class="combo-arrow">→</span>
@@ -2054,7 +2189,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
             <div class="section-title">Efficiency Tips</div>
             <div class="tips-grid">
                 <div class="tip-card">
-                    <h4>⚡ Context Loading</h4>
+                    <h4><span class="tip-title-icon" aria-hidden="true"><i data-lucide="zap"></i></span><span>Context Loading</span></h4>
                     <ul>
                         <li>Use <strong>@workspace</strong> before complex tasks so the agent sees your full repo
                             structure</li>
@@ -2064,7 +2199,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </ul>
                 </div>
                 <div class="tip-card">
-                    <h4>🎯 Trigger Keywords</h4>
+                    <h4><span class="tip-title-icon" aria-hidden="true"><i data-lucide="target"></i></span><span>Trigger Keywords</span></h4>
                     <ul>
                         <li>Add <strong>trigger words in the description</strong> (like "secaudit") — Copilot
                             auto-routes</li>
@@ -2074,7 +2209,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </ul>
                 </div>
                 <div class="tip-card">
-                    <h4>🧠 Model Selection</h4>
+                    <h4><span class="tip-title-icon" aria-hidden="true"><i data-lucide="brain"></i></span><span>Model Selection</span></h4>
                     <ul>
                         <li>Use <strong>claude-sonnet</strong> for code-heavy tasks (AI Engineer, Full Stack Dev)</li>
                         <li>Use <strong>GPT-4.1</strong> for fast, routine tasks like writing docstrings</li>
@@ -2083,7 +2218,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </ul>
                 </div>
                 <div class="tip-card">
-                    <h4>📦 Global vs Workspace</h4>
+                    <h4><span class="tip-title-icon" aria-hidden="true"><i data-lucide="package"></i></span><span>Global vs Workspace</span></h4>
                     <ul>
                         <li><strong>User profile (global):</strong> Code Reviewer, Doc Writer, Security Auditor</li>
                         <li><strong>Workspace (repo-specific):</strong> AI Engineer, Full Stack Dev, ML Researcher</li>
@@ -2091,7 +2226,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </ul>
                 </div>
                 <div class="tip-card">
-                    <h4>🔄 Agent Handoffs</h4>
+                    <h4><span class="tip-title-icon" aria-hidden="true"><i data-lucide="refresh-cw"></i></span><span>Agent Handoffs</span></h4>
                     <ul>
                         <li>Use <strong>"continue with @full-stack-dev"</strong> to hand off context between agents</li>
                         <li>Reference the previous agent's output: <strong>"take the architecture @system-designer
@@ -2100,7 +2235,7 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
                     </ul>
                 </div>
                 <div class="tip-card">
-                    <h4>🛠 MCP Supercharger</h4>
+                    <h4><span class="tip-title-icon" aria-hidden="true"><i data-lucide="wrench"></i></span><span>MCP Supercharger</span></h4>
                     <ul>
                         <li>Connect <strong>GitHub MCP</strong> to let agents read issues, PRs, and repo data natively
                         </li>
@@ -2138,7 +2273,113 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
 
     </div>
 
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+
+        const heroTabs = ['analyse', 'train', 'testing', 'deploy'];
+        const tabButtons = Array.from(document.querySelectorAll('.copilot-tab-button[data-tab]'));
+        const tabOverlays = Array.from(document.querySelectorAll('.copilot-video-overlay[data-overlay]'));
+        let activeTab = 'analyse';
+        let tabCycleTimer = null;
+
+        const primaryNav = document.querySelector('.copilot-nav');
+        const menuToggleButton = document.querySelector('.copilot-menu-toggle');
+        const menuActionPanel = document.querySelector('.copilot-nav-actions');
+
+        function closeMobileMenu() {
+            if (!primaryNav || !menuToggleButton) return;
+            primaryNav.classList.remove('is-menu-open');
+            menuToggleButton.setAttribute('aria-expanded', 'false');
+        }
+
+        if (primaryNav && menuToggleButton && menuActionPanel) {
+            menuToggleButton.addEventListener('click', event => {
+                event.stopPropagation();
+                const isOpen = primaryNav.classList.toggle('is-menu-open');
+                menuToggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            document.addEventListener('click', event => {
+                if (primaryNav.contains(event.target)) return;
+                closeMobileMenu();
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    closeMobileMenu();
+                }
+            });
+
+            menuActionPanel.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+        }
+
+        function restartOverlayAnimation(overlay) {
+            overlay.classList.remove('animate-fade-in-overlay');
+            void overlay.offsetWidth;
+            overlay.classList.add('animate-fade-in-overlay');
+
+            const dialog = overlay.querySelector('.copilot-overlay-dialog');
+            if (!dialog) return;
+
+            dialog.classList.remove('animate-slide-up-overlay');
+            void dialog.offsetWidth;
+            dialog.classList.add('animate-slide-up-overlay');
+        }
+
+        function setActiveHeroTab(tab) {
+            if (!heroTabs.includes(tab)) return;
+            activeTab = tab;
+
+            tabButtons.forEach(button => {
+                const isActive = button.dataset.tab === tab;
+                button.classList.toggle('is-active', isActive);
+                button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            tabOverlays.forEach(overlay => {
+                const isActive = overlay.dataset.overlay === tab;
+                overlay.classList.toggle('is-active', isActive);
+                if (isActive) restartOverlayAnimation(overlay);
+            });
+        }
+
+        function startHeroTabCycle() {
+            if (!tabButtons.length || !tabOverlays.length) return;
+            if (tabCycleTimer) clearInterval(tabCycleTimer);
+
+            tabCycleTimer = setInterval(() => {
+                const currentIndex = heroTabs.indexOf(activeTab);
+                const nextTab = heroTabs[(currentIndex + 1) % heroTabs.length];
+                setActiveHeroTab(nextTab);
+            }, 4000);
+        }
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                setActiveHeroTab(button.dataset.tab);
+                startHeroTabCycle();
+            });
+        });
+
+        if (tabButtons.length && tabOverlays.length) {
+            setActiveHeroTab(activeTab);
+            startHeroTabCycle();
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    clearInterval(tabCycleTimer);
+                    tabCycleTimer = null;
+                    return;
+                }
+                startHeroTabCycle();
+            });
+        }
+
         function copyText(text) {
             if (navigator.clipboard && window.isSecureContext) {
                 return navigator.clipboard.writeText(text);
@@ -2166,12 +2407,10 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
         function flashCopyState(btn, copiedText) {
             const original = btn.textContent;
             btn.textContent = copiedText;
-            btn.style.color = '#ffffff';
-            btn.style.borderColor = '#93c5fd';
+            btn.classList.add('is-copied');
             setTimeout(() => {
                 btn.textContent = original;
-                btn.style.color = '';
-                btn.style.borderColor = '';
+                btn.classList.remove('is-copied');
             }, 1500);
         }
 
@@ -2183,11 +2422,23 @@ Step 3: apply tokens to components — content stays unchanged.</span></pre>
             copyText(command).then(() => flashCopyState(btn, 'command copied!'));
         }
 
+        const deployWorkflowButton = document.querySelector('.copilot-deploy-button');
+        if (deployWorkflowButton) {
+            deployWorkflowButton.addEventListener('click', () => {
+                const quickStartSection = document.querySelector('#quickstart');
+                if (quickStartSection) {
+                    quickStartSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        }
+
         // Smooth scroll for nav links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', e => {
+                const selector = anchor.getAttribute('href');
+                if (!selector || selector.length < 2) return;
                 e.preventDefault();
-                const target = document.querySelector(anchor.getAttribute('href'));
+                const target = document.querySelector(selector);
                 if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });

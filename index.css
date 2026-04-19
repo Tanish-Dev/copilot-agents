@@ -1,0 +1,1575 @@
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-fade-in-overlay {
+    animation: fadeInOverlay 0.4s ease-out forwards;
+}
+
+@keyframes fadeInDialog {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-slide-up-overlay {
+    animation: fadeInDialog 0.5s ease-out forwards;
+    transform: translate(-50%, -50%);
+}
+
+body {
+    background: #ffffff !important;
+    color: #111827;
+    font-family: 'Inter', sans-serif;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body::before,
+body::after {
+    display: none !important;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+.copilot-max {
+    max-width: 80rem;
+    margin: 0 auto;
+}
+
+.copilot-hero {
+    background: #ffffff;
+    position: relative;
+    z-index: 1;
+}
+
+.copilot-nav {
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.copilot-brand-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #000000;
+    text-decoration: none;
+}
+
+.copilot-brand-star {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copilot-brand-text {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.icon-star-filled svg {
+    width: 100%;
+    height: 100%;
+    fill: #000000;
+    stroke: #000000;
+}
+
+.copilot-nav-center {
+    display: none;
+    align-items: center;
+    gap: 2rem;
+}
+
+.copilot-nav-item {
+    border: 0;
+    background: transparent;
+    color: #374151;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: color 0.2s ease;
+}
+
+.copilot-nav-item:hover {
+    color: #000000;
+}
+
+.copilot-nav-item svg {
+    width: 0.95rem;
+    height: 0.95rem;
+}
+
+.copilot-nav-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.copilot-login-link {
+    color: #374151;
+    font-size: 0.875rem;
+    text-decoration: none;
+}
+
+.copilot-login-link:hover {
+    color: #000000;
+}
+
+.copilot-start-button {
+    background: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.625rem 1.25rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.copilot-start-button:hover {
+    background: #1f2937;
+}
+
+.copilot-menu-toggle {
+    display: none;
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    border-radius: 0.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.45rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.28rem;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.copilot-menu-toggle:hover {
+    border-color: #9ca3af;
+    background: #f9fafb;
+}
+
+.copilot-menu-toggle-line {
+    width: 1rem;
+    height: 2px;
+    background: #111827;
+    border-radius: 999px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.copilot-nav.is-menu-open .copilot-menu-toggle-line:nth-child(1) {
+    transform: translateY(0.38rem) rotate(45deg);
+}
+
+.copilot-nav.is-menu-open .copilot-menu-toggle-line:nth-child(2) {
+    opacity: 0;
+}
+
+.copilot-nav.is-menu-open .copilot-menu-toggle-line:nth-child(3) {
+    transform: translateY(-0.38rem) rotate(-45deg);
+}
+
+.copilot-hero-content {
+    text-align: center;
+    padding: 6rem 1.5rem 8rem;
+}
+
+.copilot-reviews {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.copilot-review-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+}
+
+.copilot-review-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #000000;
+}
+
+.copilot-heading {
+    margin: 0 0 1.25rem;
+    font-size: 3.75rem;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+}
+
+.copilot-heading-gradient {
+    background: linear-gradient(to right, #000000, #6b7280, #9ca3af);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.copilot-subheading {
+    margin: 0 auto 2rem;
+    max-width: 42rem;
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.copilot-hero-cta {
+    display: inline-block;
+    background: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.75rem 2rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
+    transition: background-color 0.2s ease;
+}
+
+.copilot-hero-cta:hover {
+    background: #1f2937;
+}
+
+.copilot-tab-shell {
+    margin: 0 auto;
+    background: #f3f4f6;
+    border-radius: 0.75rem;
+    padding: 0.25rem;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.code-block pre,
+.command-box pre {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.copilot-tabs-mobile {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.25rem;
+}
+
+.copilot-tabs-desktop {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.copilot-tab-button {
+    border: 0;
+    background: transparent;
+    color: #4b5563;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.65rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.copilot-tab-button svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+.copilot-tab-button.is-active {
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 0 1px 2px rgba(17, 24, 39, 0.12);
+}
+
+.copilot-tab-divider {
+    width: 1px;
+    height: 1.25rem;
+    background: #d1d5db;
+}
+
+.copilot-video-stage {
+    position: relative;
+    margin-top: 2rem;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    height: 400px;
+}
+
+.copilot-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.copilot-video-overlay {
+    position: absolute;
+    inset: 0;
+    display: none;
+}
+
+.copilot-video-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(17, 24, 39, 0.041), rgba(17, 24, 39, 0.103));
+}
+
+.copilot-video-overlay.is-active {
+    display: block;
+}
+
+.copilot-overlay-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(92%, 430px);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(209, 213, 219, 0.9);
+    border-radius: 1rem;
+    padding: 1rem;
+    text-align: left;
+    z-index: 2;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+}
+
+.copilot-overlay-dialog h3 {
+    margin: 0;
+    color: #111827;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.copilot-overlay-caption {
+    margin: 0.25rem 0 0.75rem;
+    color: #4b5563;
+    font-size: 0.875rem;
+}
+
+.copilot-progress-track {
+    height: 0.55rem;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 0 0 0.95rem;
+}
+
+.copilot-progress-fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.copilot-progress-step-1 {
+    width: 25%;
+}
+
+.copilot-progress-step-2 {
+    width: 50%;
+}
+
+.copilot-progress-step-3 {
+    width: 75%;
+}
+
+.copilot-progress-step-4 {
+    width: 100%;
+}
+
+.copilot-progress-purple {
+    background: linear-gradient(90deg, #7c3aed, #a855f7);
+}
+
+.copilot-progress-orange {
+    background: linear-gradient(90deg, #f97316, #f59e0b);
+}
+
+.copilot-progress-blue {
+    background: linear-gradient(90deg, #2563eb, #60a5fa);
+}
+
+.copilot-progress-green {
+    background: linear-gradient(90deg, #15803d, #4ade80);
+}
+
+.copilot-step-list,
+.copilot-check-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+}
+
+.copilot-step-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.85rem;
+    color: #374151;
+}
+
+.copilot-step-list span {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.copilot-step-list .is-complete span {
+    background: #7c3aed;
+    color: #ffffff;
+    border-color: #7c3aed;
+}
+
+.copilot-step-list .is-current span {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+}
+
+.copilot-step-pill-list {
+    margin: 0 0 0.95rem;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.copilot-step-pill {
+    border: 1px solid #d1d5db;
+    border-radius: 999px;
+    padding: 0.18rem 0.5rem;
+    font-size: 0.7rem;
+    color: #6b7280;
+    background: #ffffff;
+    line-height: 1.4;
+}
+
+.copilot-step-pill.is-complete {
+    border-color: #86efac;
+    background: #f0fdf4;
+    color: #166534;
+}
+
+.copilot-step-pill.is-current {
+    border-color: #93c5fd;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+.copilot-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+}
+
+.copilot-metric-grid div {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.65rem;
+    padding: 0.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.copilot-metric-grid strong {
+    font-size: 1rem;
+    color: #111827;
+}
+
+.copilot-metric-grid span {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.copilot-result-pill {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0.9rem;
+    background: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.copilot-check-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #374151;
+    font-size: 0.85rem;
+}
+
+.copilot-check-list li::before {
+    content: '✓';
+    color: #16a34a;
+    font-weight: 700;
+}
+
+.copilot-deploy-button {
+    margin-top: 0.95rem;
+    border: 0;
+    background: #000000;
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.copilot-deploy-button:hover {
+    background: #1f2937;
+}
+
+.copilot-logos {
+    margin-top: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.4rem 2.25rem;
+    color: #6b7280;
+}
+
+.copilot-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: 0.08em;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.copilot-logo-spotify .copilot-logo-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: #6b7280;
+}
+
+.copilot-dot-grid {
+    width: 0.95rem;
+    height: 0.95rem;
+    background-image: radial-gradient(#6b7280 1px, transparent 1px);
+    background-size: 4px 4px;
+}
+
+.copilot-logo-m3 {
+    font-family: 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    text-transform: none;
+    letter-spacing: 0.04em;
+}
+
+.copilot-lc-badge {
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 999px;
+    border: 1px solid #9ca3af;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    letter-spacing: 0;
+}
+
+.copilot-logo-vertex {
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+
+.copilot-vertex-dots {
+    display: inline-flex;
+    gap: 0.2rem;
+}
+
+.copilot-vertex-dots span {
+    width: 0.32rem;
+    height: 0.32rem;
+    border-radius: 999px;
+    background: #6b7280;
+}
+
+@media (min-width: 768px) {
+    .copilot-nav-center {
+        display: inline-flex;
+    }
+
+    .copilot-heading {
+        font-size: 4.5rem;
+    }
+
+    .copilot-subheading {
+        font-size: 1rem;
+    }
+
+    .copilot-tabs-mobile {
+        display: none;
+    }
+
+    .copilot-tabs-desktop {
+        display: inline-flex;
+    }
+
+    .copilot-video-stage {
+        height: 500px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .copilot-heading {
+        font-size: 5rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .copilot-nav {
+        padding: 0.9rem 1rem;
+        position: relative;
+    }
+
+    .copilot-brand-text {
+        font-size: 0.98rem;
+    }
+
+    .copilot-menu-toggle {
+        display: inline-flex;
+    }
+
+    .copilot-nav-actions {
+        display: none;
+        position: absolute;
+        top: calc(100% + 0.35rem);
+        right: 1rem;
+        width: min(13.75rem, calc(100vw - 2rem));
+        padding: 0.65rem;
+        border: 1px solid #e5e7eb;
+        background: #ffffff;
+        border-radius: 0.9rem;
+        box-shadow: 0 16px 36px rgba(17, 24, 39, 0.14);
+        flex-direction: column;
+        gap: 0.55rem;
+        z-index: 30;
+    }
+
+    .copilot-nav.is-menu-open .copilot-nav-actions {
+        display: flex;
+    }
+
+    .copilot-login-link,
+    .copilot-start-button {
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.8rem;
+        padding: 0.55rem 0.8rem;
+    }
+
+    .copilot-login-link {
+        border: 1px solid #d1d5db;
+        border-radius: 999px;
+        background: #ffffff;
+        color: #111827;
+    }
+
+    .copilot-login-link:hover {
+        background: #f9fafb;
+    }
+
+    .copilot-hero-content {
+        padding: 4.2rem 1rem 5rem;
+    }
+
+    .copilot-reviews {
+        margin-bottom: 1.4rem;
+    }
+
+    .copilot-review-text {
+        font-size: 0.78rem;
+    }
+
+    .copilot-heading {
+        font-size: 2.2rem;
+        line-height: 1.08;
+    }
+
+    .copilot-subheading {
+        font-size: 0.9rem;
+        margin-bottom: 1.45rem;
+    }
+
+    .copilot-hero-cta {
+        font-size: 0.9rem;
+        padding: 0.65rem 1.3rem;
+        margin-bottom: 1.9rem;
+    }
+
+    .copilot-tab-shell {
+        width: 100%;
+        padding: 0.2rem;
+    }
+
+    .copilot-tabs-mobile {
+        width: 100%;
+    }
+
+    .copilot-tab-button {
+        min-width: 0;
+        font-size: 0.72rem;
+        gap: 0.22rem;
+        padding: 0.48rem 0.18rem;
+    }
+
+    .copilot-tab-button svg {
+        width: 0.82rem;
+        height: 0.82rem;
+    }
+
+    .copilot-video-stage {
+        height: 320px;
+    }
+
+    .copilot-metric-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .copilot-logos {
+        margin-top: 3rem;
+        gap: 0.8rem 1rem;
+    }
+
+    .copilot-logo {
+        font-size: 0.74rem;
+    }
+
+    .copilot-overlay-dialog {
+        width: min(95%, 340px);
+    }
+}
+
+.agent-icon svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    stroke: #0f172a;
+}
+
+.combo-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.combo-label-icon,
+.tip-title-icon {
+    width: 1rem;
+    height: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.combo-label-icon svg,
+.tip-title-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Quick Start refresh aligned with hero UI */
+#quickstart {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 0;
+    margin-bottom: 4.25rem;
+}
+
+#quickstart .section-title {
+    display: block;
+    margin: 0 0 0.9rem;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.7rem, 4vw, 2.45rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: #111827;
+    text-transform: none;
+}
+
+#quickstart .section-title::after {
+    display: none;
+}
+
+#quickstart .setup-intro {
+    margin: 0 0 2rem;
+    max-width: 48rem;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: #4b5563;
+}
+
+#quickstart .setup-grid {
+    gap: 1.25rem;
+    margin-bottom: 1.35rem;
+}
+
+#quickstart .setup-card {
+    border-radius: 1.25rem;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    padding: 1.5rem;
+    box-shadow: 0 16px 40px rgba(17, 24, 39, 0.08);
+}
+
+#quickstart .setup-card::before {
+    height: 1px;
+    background: #f3f4f6;
+}
+
+#quickstart .setup-card h3 {
+    margin-bottom: 0.8rem;
+    color: #111827;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.16rem;
+    font-weight: 600;
+    line-height: 1.35;
+    gap: 0.65rem;
+}
+
+#quickstart .setup-title-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    min-width: 1.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.55rem;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    color: #111827;
+}
+
+#quickstart .setup-title-icon svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+#quickstart .install-option > p {
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 0.85rem;
+}
+
+#quickstart .command-box {
+    margin: 1rem 0 1.15rem;
+    border-radius: 1rem;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #e5e7eb;
+    box-shadow: none;
+    padding: 1rem;
+}
+
+#quickstart .command-box::before {
+    background: #111827;
+    color: #d1d5db;
+    font-size: 0.675rem;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.55rem;
+}
+
+#quickstart .command-box pre {
+    margin-top: 1.15rem;
+    padding-right: 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+#quickstart .copy-command-btn {
+    position: static;
+    margin-top: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid #9ca3af;
+    background: #ffffff;
+    color: #111827;
+    font-size: 0.84rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    padding: 0.55rem 1rem;
+}
+
+#quickstart .copy-command-btn:hover {
+    border-color: #6b7280;
+    background: #f3f4f6;
+    color: #111827;
+}
+
+#quickstart .copy-command-btn.is-copied {
+    border-color: #6b7280;
+    background: #e5e7eb;
+    color: #111827;
+}
+
+#quickstart .step {
+    gap: 0.75rem;
+    margin-bottom: 0.7rem;
+}
+
+#quickstart .step-num {
+    width: 1.75rem;
+    height: 1.75rem;
+    min-width: 1.75rem;
+    border-radius: 999px;
+    background: #f9fafb;
+    border: 1px solid #d1d5db;
+    color: #111827;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+#quickstart .step p {
+    color: #1f2937;
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+#quickstart .step p code {
+    background: #f3f4f6;
+    color: #111827;
+    border-radius: 0.45rem;
+    padding: 0.12rem 0.45rem;
+    font-size: 0.84rem;
+}
+
+#quickstart .setup-note {
+    margin-bottom: 1.2rem;
+    border-radius: 1rem;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    box-shadow: none;
+    padding: 1rem 1.1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    color: #4b5563;
+    font-size: 0.93rem;
+    line-height: 1.65;
+}
+
+#quickstart .setup-note p {
+    margin: 0;
+}
+
+#quickstart .setup-note strong {
+    color: #111827;
+}
+
+#quickstart .setup-note-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    min-width: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #111827;
+}
+
+#quickstart .setup-note-icon svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+#quickstart .vscode-note {
+    margin-bottom: 2.5rem;
+}
+
+@media (max-width: 980px) {
+    #quickstart .setup-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767px) {
+    #quickstart {
+        padding: 0.9rem 1rem 0;
+    }
+
+    #quickstart .section-title {
+        font-size: 1.65rem;
+    }
+
+    #quickstart .setup-intro,
+    #quickstart .install-option > p,
+    #quickstart .step p,
+    #quickstart .setup-note {
+        font-size: 0.9rem;
+    }
+
+    #quickstart .setup-card h3 {
+        font-size: 1rem;
+    }
+}
+
+/* Global content area alignment */
+.container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 5rem;
+}
+
+/* Agent File Format (inside Quick Start) */
+#quickstart .format-grid {
+    gap: 1.25rem;
+    margin-bottom: 2.8rem;
+}
+
+#quickstart .format-card {
+    border-radius: 1.25rem;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    box-shadow: 0 16px 40px rgba(17, 24, 39, 0.08);
+    padding: 1.5rem;
+}
+
+#quickstart .format-card h3 {
+    margin-bottom: 0.8rem;
+    color: #111827;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+#quickstart .format-card .code-block {
+    margin: 0;
+    border-radius: 1rem;
+    border: 1px solid #334155;
+    background: #0f172a;
+    box-shadow: none;
+    padding: 1rem;
+}
+
+#quickstart .format-card .code-block::before {
+    background: #111827;
+    color: #d1d5db;
+}
+
+#quickstart .format-card .code-block pre {
+    margin-top: 1.1rem;
+    font-size: 0.86rem;
+    line-height: 1.65;
+}
+
+/* Shared section title language for all lower sections */
+#agents .section-title,
+#combos .section-title,
+#tips .section-title {
+    display: block;
+    margin: 7rem 0 2.8rem;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.7rem, 4vw, 2.45rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: #111827;
+    text-transform: none;
+}
+
+#agents .section-title::after,
+#combos .section-title::after,
+#tips .section-title::after {
+    display: none;
+}
+
+/* Agents section */
+#agents {
+    margin-top: 0.4rem;
+    margin-bottom: 4.25rem;
+        padding: 1.5rem 1.5rem 0;
+
+}
+
+#agents .agents-grid {
+    gap: 1.25rem;
+    margin-bottom: 2.9rem;
+}
+
+#agents .agent-card {
+    border-radius: 1.25rem;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    box-shadow: 0 16px 40px rgba(17, 24, 39, 0.08);
+}
+
+#agents .agent-card:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 20px 46px rgba(17, 24, 39, 0.12);
+}
+
+#agents .agent-header {
+    gap: 0.9rem;
+    padding: 1.4rem 1.4rem 0;
+}
+
+#agents .agent-icon {
+    width: 2.6rem;
+    height: 2.6rem;
+    min-width: 2.6rem;
+    border-radius: 0.65rem;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+#agents .agent-icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    stroke: #111827;
+}
+
+#agents .agent-name {
+    margin-bottom: 0.35rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.16rem;
+    font-weight: 600;
+    color: #111827 !important;
+}
+
+#agents .agent-desc {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: #4b5563;
+}
+
+#agents .agent-tags {
+    margin-top: 0.7rem;
+    gap: 0.5rem;
+}
+
+#agents .badge,
+#agents .badge.cyan,
+#agents .badge.orange,
+#agents .badge.purple,
+#agents .badge.yellow {
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    color: #1f2937;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 0.2rem 0.6rem;
+}
+
+#agents .agent-body {
+    padding: 1.1rem 1.4rem 1.4rem;
+}
+
+#agents .agent-use {
+    margin-bottom: 1rem;
+    font-size: 0.94rem;
+    line-height: 1.7;
+    color: #374151;
+}
+
+#agents .code-block {
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    border: 1px solid #334155;
+    background: #0f172a;
+    box-shadow: none;
+    padding: 1rem;
+}
+
+#agents .code-block::before {
+    background: #111827;
+    color: #d1d5db;
+    font-size: 0.67rem;
+}
+
+#agents .code-block pre {
+    margin-top: 1.1rem;
+    padding-right: 0;
+    font-size: 0.84rem;
+    line-height: 1.65;
+}
+
+#agents .copy-btn {
+    position: static;
+    margin-top: 0.75rem;
+    border: 1px solid #9ca3af;
+    background: #ffffff;
+    color: #111827;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    padding: 0.55rem 1rem;
+}
+
+#agents .copy-btn:hover {
+    border-color: #6b7280;
+    background: #f3f4f6;
+    color: #111827;
+}
+
+#agents .copy-btn.is-copied {
+    border-color: #6b7280;
+    background: #e5e7eb;
+    color: #111827;
+}
+
+#agents .trigger-label {
+    margin-bottom: 0.55rem;
+    color: #111827;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+#agents .triggers {
+    gap: 0.5rem;
+}
+
+#agents .trigger {
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    color: #0f0f0f;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    padding: 0.35rem 0.7rem;
+}
+
+#agents .trigger:hover {
+    background: #f3f4f6;
+}
+
+/* Combos section */
+#combos {
+    margin-bottom: 4.25rem;
+}
+
+#combos .combos-grid {
+    gap: 1rem;
+    margin-bottom: 2.8rem;
+}
+
+#combos .combo-card {
+    border-radius: 1rem;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    box-shadow: 0 14px 32px rgba(17, 24, 39, 0.07);
+    padding: 1.1rem 1.2rem;
+}
+
+#combos .combo-card:hover {
+    border-color: #d1d5db;
+}
+
+#combos .combo-label {
+    color: #111827;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.94rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+#combos .combo-label-icon {
+    width: 1.05rem;
+    height: 1.05rem;
+    color: #111827;
+}
+
+#combos .combo-chain {
+    gap: 0.45rem;
+    font-size: 0.86rem;
+}
+
+#combos .combo-agent {
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    color: #1f2937;
+    border-radius: 999px;
+    padding: 0.3rem 0.7rem;
+}
+
+#combos .combo-arrow {
+    color: #9ca3af;
+    font-size: 1rem;
+}
+
+/* Tips section */
+#tips {
+    margin-bottom: 4.25rem;
+}
+
+#tips .tips-grid {
+    gap: 1rem;
+    margin-bottom: 2.8rem;
+}
+
+#tips .tip-card {
+    border-radius: 1rem;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    box-shadow: 0 14px 32px rgba(17, 24, 39, 0.07);
+    padding: 1.25rem;
+}
+
+#tips .tip-card:hover {
+    border-color: #d1d5db;
+}
+
+#tips .tip-card h4 {
+    margin-bottom: 0.75rem;
+    color: #111827;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 600;
+    gap: 0.55rem;
+}
+
+#tips .tip-title-icon {
+    width: 1.05rem;
+    height: 1.05rem;
+    color: #111827;
+}
+
+#tips .tip-card li {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    padding: 0.28rem 0 0.28rem 1rem;
+}
+
+#tips .tip-card li::before {
+    content: '•';
+    color: #9ca3af;
+    top: 0.36rem;
+}
+
+#tips .tip-card li strong {
+    color: #111827;
+}
+
+/* CTA and Footer */
+.cta-banner {
+    border-radius: 1.25rem;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    box-shadow: 0 16px 40px rgba(17, 24, 39, 0.08);
+    padding: 2.1rem 1.5rem;
+    margin-bottom: 2.6rem;
+}
+
+.cta-banner::before {
+    display: none;
+}
+
+
+.cta-banner h2 {
+    margin-bottom: 0.8rem;
+    color: #111827;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.95rem, 3.6vw, 2.8rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+}
+
+.cta-banner p {
+    max-width: 46rem;
+    margin: 0 auto 1.35rem;
+    color: #4b5563;
+    font-size: 0.98rem;
+    line-height: 1.65;
+}
+
+.cta-actions {
+    gap: 0.7rem;
+}
+
+.cta-actions .btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    border-radius: 999px;
+    padding: 0.72rem 1.2rem;
+}
+
+.cta-actions .btn-primary {
+    border: 1px solid #000000;
+    background: #000000;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.cta-actions .btn-primary:hover {
+    background: #1f2937;
+}
+
+.cta-actions .btn-outline {
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    color: #111827;
+}
+
+.cta-actions .btn-outline:hover {
+    border-color: #9ca3af;
+    background: #f3f4f6;
+    color: #111827;
+}
+
+.footer {
+    padding-top: 1.35rem;
+    border-top: 1px solid #e5e7eb;
+    color: #6b7280;
+    font-size: 0.96rem;
+    line-height: 1.75;
+}
+
+.footer a {
+    color: #374151;
+}
+
+.footer a:hover {
+    color: #111827;
+}
+
+@media (max-width: 980px) {
+    .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+}
+
+@media (max-width: 767px) {
+    #quickstart,
+    #agents,
+    #combos,
+    #tips {
+        margin-bottom: 3rem;
+    }
+
+    #quickstart .format-card h3,
+    #tips .tip-card h4 {
+        font-size: 0.9rem;
+    }
+
+    #agents .agent-name {
+        font-size: 0.98rem;
+    }
+
+    #agents .agent-desc,
+    #agents .agent-use,
+    #tips .tip-card li,
+    .cta-banner p {
+        font-size: 0.84rem;
+    }
+
+    #agents .code-block pre,
+    #quickstart .format-card .code-block pre {
+        font-size: 0.78rem;
+    }
+
+    #combos .combo-label {
+        font-size: 0.86rem;
+    }
+
+    #quickstart .format-grid,
+    #combos .combos-grid,
+    #tips .tips-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-actions {
+        justify-content: center;
+    }
+
+    .footer {
+        font-size: 0.9rem;
+    }
+}
+.section-title
+{
+    margin-top: 7rem;
+}
