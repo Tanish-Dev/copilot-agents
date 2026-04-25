@@ -10,7 +10,7 @@
 **9 battle-tested custom agents for the complete software development lifecycle.**  
 Drop these `.agent.md` files into your repo and ship better software, faster.
 
-[**→ View Interactive Showcase**](https://tanish.dev/copilot-agents) · [**Browse Agents**](#agents) · [**Quick Start**](#quick-start) · [**Contribute**](CONTRIBUTING.md)
+[**→ View Interactive Showcase**](https://copilot-agents.netlify.app) · [**Browse Agents**](#agents) · [**Quick Start**](#quick-start) · [**Contribute**](CONTRIBUTING.md)
 
 </div>
 
@@ -120,8 +120,7 @@ copilot-agents/
 │   ├── security-auditor.agent.md
 │   ├── open-source-contributor.agent.md
 │   └── ui-designer.agent.md
-├── docs/                           # Interactive web showcase
-│   └── index.html
+├── index.html
 ├── CONTRIBUTING.md
 ├── LICENSE
 └── README.md
