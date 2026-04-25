@@ -57,10 +57,16 @@ Each agent:
 
 ### Option B: One Command (Recommended)
 
-This creates `.github/agents/` in your repo and installs all agents in one go:
+This creates `.github/agents/` in your repo and installs all agents in one go.
 
+**Mac/Linux:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project .
+```
+
+**Windows (PowerShell):**
+```powershell
+New-Item -Path .github\agents -ItemType Directory -Force; Invoke-RestMethod https://api.github.com/repos/Tanish-Dev/copilot-agents/contents/agents | Where-Object {$_.name -match '\.agent\.md$'} | ForEach-Object { Invoke-WebRequest $_.download_url -OutFile ".github\agents\$($_.name)" }
 ```
 
 You can also run locally after cloning this repo:

@@ -1597,7 +1597,7 @@
             aria-expanded="false"
             aria-label="Choose install command"
           >
-            <span class="copilot-quick-copy-select-label">Project Install</span>
+            <span class="copilot-quick-copy-select-label">Project Install (Mac/Linux)</span>
             <i data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
           <div class="copilot-quick-copy-command" aria-live="polite">
@@ -1624,10 +1624,19 @@
               class="copilot-quick-copy-option is-active"
               type="button"
               role="menuitem"
-              data-copy-label="Project Install"
+              data-copy-label="Project Install (Mac/Linux)"
               data-copy-command="curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project ."
             >
-              Project Install
+              Project Install (Mac/Linux)
+            </button>
+            <button
+              class="copilot-quick-copy-option"
+              type="button"
+              role="menuitem"
+              data-copy-label="Project Install (Windows)"
+              data-copy-command="New-Item -Path .github\agents -ItemType Directory -Force; Invoke-RestMethod https://api.github.com/repos/Tanish-Dev/copilot-agents/contents/agents | Where-Object {$_.name -match '\.agent\.md$'} | ForEach-Object { Invoke-WebRequest $_.download_url -OutFile &quot;.github\agents\$($_.name)&quot; }"
+            >
+              Project Install (Windows)
             </button>
           </div>
         </div>
@@ -1925,7 +1934,8 @@
               <code>.github/agents/</code> and copies all agent files
               automatically.
             </p>
-            <div class="command-box" data-label="terminal">
+            <p style="font-weight: 600; margin-bottom: 8px; font-size: 12px; color: var(--text);">Mac / Linux</p>
+            <div class="command-box" data-label="terminal" style="margin-top: 8px;">
               <pre>
 curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project .</pre
               >
@@ -1935,6 +1945,24 @@ curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/inst
                   copySetupCommand(
                     this,
                     'curl -fsSL https://raw.githubusercontent.com/Tanish-Dev/copilot-agents/main/install-global.sh | bash -s -- --project .',
+                  )
+                "
+              >
+                Copy command
+              </button>
+            </div>
+
+            <p style="font-weight: 600; margin-bottom: 8px; margin-top: 16px; font-size: 12px; color: var(--text);">Windows (PowerShell)</p>
+            <div class="command-box" data-label="powershell" style="margin-top: 8px;">
+              <pre>
+New-Item -Path .github\agents -ItemType Directory -Force; Invoke-RestMethod https://api.github.com/repos/Tanish-Dev/copilot-agents/contents/agents | Where-Object {$_.name -match '\.agent\.md$'} | ForEach-Object { Invoke-WebRequest $_.download_url -OutFile ".github\agents\$($_.name)" }</pre
+              >
+              <button
+                class="copy-command-btn"
+                onclick="
+                  copySetupCommand(
+                    this,
+                    'New-Item -Path .github\\agents -ItemType Directory -Force; Invoke-RestMethod https://api.github.com/repos/Tanish-Dev/copilot-agents/contents/agents | Where-Object {$_.name -match \'\\.agent\\.md$\'} | ForEach-Object { Invoke-WebRequest $_.download_url -OutFile &quot;.github\\agents\\$($_.name)&quot; }'
                   )
                 "
               >
