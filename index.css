@@ -1063,6 +1063,7 @@ video {
     padding: 0.42rem;
     margin-bottom: 1.45rem;
     border-radius: 0.9rem;
+    display: none;
   }
 
   .copilot-quick-copy-select {
